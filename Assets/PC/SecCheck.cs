@@ -27,7 +27,7 @@ public class SecCheck : MonoBehaviour
         //Physics.IgnoreCollision(seqAvoid.GetComponent<Collider>(), GetComponent<Collider>());
         rb = PhotonView.Find(myPVInt).gameObject.GetComponent<Rigidbody>();
         myPVMeshRend = PhotonView.Find(myPVInt).gameObject.GetComponent<MeshRenderer>();
-        //rb = this.GetComponent<Rigidbody>(); 
+      
     }
 
     [PunRPC]
@@ -51,7 +51,7 @@ public class SecCheck : MonoBehaviour
     {
         myPV.RPC("RPC_startManipulate", RpcTarget.All);
        Debug.Log("start manip");
-        //rb.constraints = RigidbodyConstraints.None;
+      
       
 
     }
@@ -71,34 +71,29 @@ public class SecCheck : MonoBehaviour
     [PunRPC]
     void RPC_OnTriggerEnterSequencer(int viewID)
     {
-       // Debug.Log("Sequencer Added To Collider" + collision.gameObject.name);
+        Debug.Log("on enter seq box");
 
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+      
         PhotonView.Find(viewID).gameObject.GetComponent<checkInside>().currentNote = note;
+
         mySecCheck.isActiveInSeq = true;
+
         PhotonView.Find(viewID).gameObject.GetComponent<checkInside>().sequencerBoxActive = true;
 
         Transform m_NewTransform = PhotonView.Find(viewID).gameObject.transform;
 
-        PhotonView.Find(myPVInt).transform.parent = m_NewTransform;
+      //  PhotonView.Find(myPVInt).transform.parent = m_NewTransform;
 
-        // collision.GetComponent<checkInside>().currentNote = note;
-
-        // collision.GetComponent<checkInside>().sequencerBoxActive = true;
-
-       //Transform m_NewTransform = collision.gameObject.transform;
-
-        // this.transform.parent = m_NewTransform;
-
-        this.transform.localPosition = new Vector3(0, 0, 0);
-
-        rb.constraints = RigidbodyConstraints.FreezeAll;
-
+       // this.transform.localPosition = new Vector3(0, 0, 0);
+       
         this.GetComponent<MeshRenderer>().material = on;
     }
 
     [PunRPC]
     void RPC_OnTriggerExitSequencer(int viewID)
     {
+        rb.constraints = RigidbodyConstraints.None;
         // Debug.Log("Sequencer Removed From Collider" + collision.gameObject.name);
         PhotonView.Find(viewID).gameObject.GetComponent<checkInside>().currentNote = null;
         mySecCheck.isActiveInSeq = false;
@@ -109,7 +104,7 @@ public class SecCheck : MonoBehaviour
         //isActiveInSeq = false;
         //CheckInsideWheel active = collision.gameObject.GetComponent<CheckInsideWheel>();
         PhotonView.Find(myPVInt).transform.parent = null;
-        rb.constraints = RigidbodyConstraints.None;
+       
        myPVMeshRend.GetComponent<MeshRenderer>().material = off;
     }
 
@@ -201,7 +196,7 @@ public class SecCheck : MonoBehaviour
         if (collision.gameObject.CompareTag("SequencerNotationSphere"))
         {
             int viewIDOfObject = collision.GetComponent<PhotonView>().ViewID;
-          //  Debug.Log("Sequencer Removed From Collider" + collision.gameObject.name);
+            Debug.Log("Sequencer Removed From Collider" + collision.gameObject.name);
             this.myPV.RPC("RPC_OnTriggerExitSequencer", RpcTarget.All, viewIDOfObject);
             //collision.GetComponent<checkInside>().currentNote = null;
             //isActiveInSeq = false;

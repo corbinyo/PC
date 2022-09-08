@@ -7,13 +7,14 @@ using UnityEngine;
 public class pcInteraction : MonoBehaviourPun
 {
     
-    private PhotonView myPV;
+    public PhotonView myPV;
     public bool isActiveToPlay;
     public checkInside checkInsideSphere;
     [PunRPC]
     private void Start()
     {
         this.GetComponent<MeshRenderer>().material.color = Color.red;
+        myPV = GetComponent<PhotonView>();
     }
     public void PlayBell(string note)
     {
@@ -30,17 +31,18 @@ public class pcInteraction : MonoBehaviourPun
         myPV = GetComponent<PhotonView>();
        
 }
-
-    public void setToPlay()
+    [PunRPC]
+    public void RPC_setToPlay()
     {
-        this.GetComponent<MeshRenderer>().material.color = Color.green;
+        myPV.GetComponent<MeshRenderer>().material.color = Color.green;
         isActiveToPlay = true;
         checkInsideSphere.sequencerBoxActive = true;
       
     }
-    public void setToStop()
+    [PunRPC]
+    public void RPC_setToStop()
     {
-        this.GetComponent<MeshRenderer>().material.color = Color.red;
+        myPV.GetComponent<MeshRenderer>().material.color = Color.red;
         checkInsideSphere.sequencerBoxActive = false;
         isActiveToPlay = false;
     }
@@ -54,13 +56,13 @@ public class pcInteraction : MonoBehaviourPun
 
 public void SoundYes()
     {
-        
+        Debug.Log("is this a thing?");
         this.photonView.RPC("PlayBell", RpcTarget.All);
         
     }
     public void SoundNo()
         {
-      
+        Debug.Log("is this a thing?");
         this.photonView.RPC("StopBell", RpcTarget.All);
             
         }

@@ -67,7 +67,6 @@ public class SerialCommunication : MonoBehaviour
     {
         sp.Write(note);
         sp.Write("X");
-
         Debug.Log ("Note Sent To Arduino: " + note);
     }
 
