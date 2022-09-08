@@ -65,6 +65,8 @@ MonoBehaviour:
   - RPC_OnTriggerExitCollideWithDodec
   - RPC_setToPlay
   - RPC_setToStop
+  - ResizeCube
+  - RPC_OnTriggerEnterWheel
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

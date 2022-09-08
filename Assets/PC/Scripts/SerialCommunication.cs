@@ -65,9 +65,12 @@ public class SerialCommunication : MonoBehaviour
 
     public static void sendNote(string note)
     {
-        sp.Write(note);
-        sp.Write("X");
-        Debug.Log ("Note Sent To Arduino: " + note);
+        if (note != null)
+        {
+            sp.Write(note);
+            sp.Write("X");
+            Debug.Log("Note Sent To Arduino: " + note);
+        }
     }
 
   public static IEnumerator func(string note)

@@ -9,12 +9,20 @@ public class pcInteraction : MonoBehaviourPun
     
     public PhotonView myPV;
     public bool isActiveToPlay;
-    public checkInside checkInsideSphere;
+    private int myPVInt;
+    public checkInside allCheckInsideSphere;
+    public pcInteraction allPCInteraction;
+    public MeshRenderer allSequencerBoxMesh;
+
     [PunRPC]
     private void Start()
     {
-        this.GetComponent<MeshRenderer>().material.color = Color.red;
+      
         myPV = GetComponent<PhotonView>();
+        myPVInt = this.myPV.ViewID;
+        allPCInteraction = PhotonView.Find(myPVInt).gameObject.GetComponent<pcInteraction>();
+   
+        allPCInteraction.allSequencerBoxMesh.material.color = Color.red;
     }
     public void PlayBell(string note)
     {
@@ -31,29 +39,26 @@ public class pcInteraction : MonoBehaviourPun
         myPV = GetComponent<PhotonView>();
        
 }
+
     [PunRPC]
     public void RPC_setToPlay()
     {
-        myPV.GetComponent<MeshRenderer>().material.color = Color.green;
-        isActiveToPlay = true;
-        checkInsideSphere.sequencerBoxActive = true;
+        Debug.Log("is this a thing? green");
+        allPCInteraction.allSequencerBoxMesh.material.color = Color.green;
+        allPCInteraction.isActiveToPlay = true;
+        allPCInteraction.allCheckInsideSphere.sequencerBoxActive = true;
       
     }
     [PunRPC]
     public void RPC_setToStop()
     {
-        myPV.GetComponent<MeshRenderer>().material.color = Color.red;
-        checkInsideSphere.sequencerBoxActive = false;
-        isActiveToPlay = false;
+        Debug.Log("is this a thing? red");
+        allPCInteraction.allSequencerBoxMesh.material.color = Color.red;
+        allPCInteraction.isActiveToPlay = false;
+        allPCInteraction.allCheckInsideSphere.sequencerBoxActive = false;
     }
 
-    [PunRPC]
-    void RPC_SetColor(Color transferredColor)
-    {
-        gameObject.GetComponentInChildren<SpriteRenderer>().color = transferredColor;
-    }
-
-
+ 
 public void SoundYes()
     {
         Debug.Log("is this a thing?");

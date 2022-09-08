@@ -12,7 +12,7 @@ public class PCSequencer : MonoBehaviour
 {
 
     [Header("Sequence Controller")]
-
+    private PhotonView myPV;
     [Tooltip("Drag in a bunch of GameObject you want in the sequence (must be in correct order before dragging in).")]
     /// <summary>
     /// List of GameObjects in sequence (must be in correct order)
@@ -37,7 +37,9 @@ public class PCSequencer : MonoBehaviour
                 // Ensure current index isn't more/less than the index bounds of the given Sequence Items...
                 if (_currentIndex >= 0 || _currentIndex <= SequenceItems.Length - 1)
                 {
+                    Debug.Log("is this a thing?:   " + value);
                     _currentIndex = value;
+
                 }
             }
         }
@@ -47,7 +49,7 @@ public class PCSequencer : MonoBehaviour
     /// </summary>
     void Start()
     {
-      
+        myPV = GetComponent<PhotonView>();
         // Ensure Sequence is reset and only the first Sequence Item is visible...
         ResetSequence();
 
@@ -64,13 +66,6 @@ public class PCSequencer : MonoBehaviour
         }
     }
 
-    
-   
-    /// <summary>
-    /// Get the UI controls from transform and add listeners.
-    /// </summary>
-
-
     /// <summary>
     /// On play button pressed.
     /// </summary>
@@ -86,36 +81,32 @@ public class PCSequencer : MonoBehaviour
         InvokeRepeating("OnNext", sequenceIntervalDelay, sequenceIntervalDelay);
         Debug.Log("Sequence Item " + CurrentIndex);
     }
-
-   
     private void OnNext()
     {
         if (CurrentIndex  < SequenceItems.Length )
         {
-          // Debug.Log("what the index:  " + CurrentIndex);
+            // Debug.Log("what the index:  " + CurrentIndex);
 
-            // If we are not at the end of the Sequence, increment the current index and make the Sequence Item at the new current index visible...
-         
-            //SequenceItems[CurrentIndex].SetActive(true);
 
-            ResizeCube(CurrentIndex);
+           myPV.RPC("ResizeCube", RpcTarget.All,CurrentIndex);
+           // ResizeCube(CurrentIndex);
   
             if (PhotonView.Find(SequenceItems[CurrentIndex].GetComponent<PhotonView>().ViewID).gameObject.GetComponent<pcInteraction>().isActiveToPlay == true)
             {
                 Debug.Log("PlayNOte:  " + CurrentIndex);
-                SerialCommunication.sendNote(PhotonView.Find(SequenceItems[CurrentIndex].GetComponent<PhotonView>().ViewID).GetComponent<pcInteraction>().checkInsideSphere.currentNote);
+                SerialCommunication.sendNote(PhotonView.Find(SequenceItems[CurrentIndex].GetComponent<PhotonView>().ViewID).GetComponent<pcInteraction>().allCheckInsideSphere.currentNote);
                 Debug.Log("sending note to arduino from sequencer");
-                // SerialCommunication.sendNote("X");
+              
             }
             else if (SequenceItems[CurrentIndex].GetComponent<pcInteraction>().isActiveToPlay == false)
             {
-                //SerialCommunication.sendNote("X");
+               
             }
             CurrentIndex++;
         }
         else
         {
-            // If we are at the end of the sequence, then stop the repeat call to the OnNext() method and swith play/pause button visibility...
+           
       
             ResetSequence();
           
@@ -123,8 +114,10 @@ public class PCSequencer : MonoBehaviour
         }
     }
 
+    [PunRPC]
     void ResizeCube(int index)
     {
+
         for (int i = 0; i < SequenceItems.Length; i++)
         {
             if (i == index)

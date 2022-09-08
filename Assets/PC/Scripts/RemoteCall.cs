@@ -28,7 +28,7 @@ public class RemoteCall : MonoBehaviour
     {
 
         SerialCommunication.sendNote(note);
-        //SerialCommunication.sendNote("X");
+      
     }
 
     // Update is called once per frame
