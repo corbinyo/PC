@@ -101,14 +101,10 @@ public class SecCheck : MonoBehaviour
 
         PhotonView.Find(viewID).gameObject.GetComponent<CheckInsideWheel>().wheelBox.GetComponent<MeshRenderer>().material = on;
 
-
-        //Transform m_NewTransform = collision.gameObject.transform;
-
         PhotonView.Find(myPVInt).gameObject.transform.parent = PhotonView.Find(viewID).gameObject.transform;
 
-        //this.transform.localPosition = new Vector3(0, 0, 0);
-        //calls the RPC on checkinside script
-        PhotonView.Find(viewID).RPC("RPC_OnTriggerCollideWithDodec", RpcTarget.All);
+        //calls the RPC on checkinsidewheel script
+       // PhotonView.Find(viewID).RPC("RPC_OnTriggerCollideWithDodec", RpcTarget.All);
     }
 
 
@@ -119,6 +115,7 @@ public class SecCheck : MonoBehaviour
 
             int viewIDOfObject = collision.GetComponent<PhotonView>().ViewID;
 
+            //calls the RPC on this script
             PhotonView.Find(myPVInt).RPC("RPC_OnTriggerEnterWheel", RpcTarget.All, viewIDOfObject);
 
             Debug.Log("RPC_OnTriggerWheelFunction Called" + "Sequencer Added To Collider" + collision.gameObject.name);
@@ -141,6 +138,7 @@ public class SecCheck : MonoBehaviour
 
 
     }
+
     [PunRPC]
     void RPC_OnTriggerExitSequencer(int viewID)
     {
@@ -163,6 +161,7 @@ public class SecCheck : MonoBehaviour
         PhotonView.Find(viewID).RPC("RPC_OnTriggerExitCollideWithDodec", RpcTarget.All);
     }
 
+    [PunRPC]
     void RPC_OnTriggerExitWheel(int viewID)
     {
         Debug.Log("on ecit wheel box");
@@ -188,7 +187,7 @@ public class SecCheck : MonoBehaviour
 
         //this.transform.localPosition = new Vector3(0, 0, 0);
         //calls the RPC on checkinside script
-        PhotonView.Find(viewID).RPC("RPC_OnTriggerCollideWithDodec", RpcTarget.All);
+       // PhotonView.Find(viewID).RPC("RPC_OnWheelTriggerExit", RpcTarget.All);
     
 }
 

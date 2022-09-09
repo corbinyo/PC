@@ -37,7 +37,7 @@ public class PCSequencer : MonoBehaviour
                 // Ensure current index isn't more/less than the index bounds of the given Sequence Items...
                 if (_currentIndex >= 0 || _currentIndex <= SequenceItems.Length - 1)
                 {
-                    Debug.Log("is this a thing?:   " + value);
+                   // Debug.Log("is this a thing?:   " + value);
                     _currentIndex = value;
 
                 }
@@ -88,7 +88,7 @@ public class PCSequencer : MonoBehaviour
             // Debug.Log("what the index:  " + CurrentIndex);
 
 
-           myPV.RPC("ResizeCube", RpcTarget.All,CurrentIndex);
+          // myPV.RPC("ResizeCube", RpcTarget.All,CurrentIndex);
            // ResizeCube(CurrentIndex);
   
             if (PhotonView.Find(SequenceItems[CurrentIndex].GetComponent<PhotonView>().ViewID).gameObject.GetComponent<pcInteraction>().isActiveToPlay == true)

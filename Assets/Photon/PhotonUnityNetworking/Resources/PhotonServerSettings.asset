@@ -67,6 +67,9 @@ MonoBehaviour:
   - RPC_setToStop
   - ResizeCube
   - RPC_OnTriggerEnterWheel
+  - RPC_OnWheelTrigger
+  - RPC_OnWheelTriggerExit
+  - RPC_OnTriggerExitWheel
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
