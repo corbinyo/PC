@@ -88,7 +88,7 @@ public class PCSequencer : MonoBehaviour
             // Debug.Log("what the index:  " + CurrentIndex);
 
 
-          // myPV.RPC("ResizeCube", RpcTarget.All,CurrentIndex);
+           myPV.RPC("ResizeCube", RpcTarget.All,CurrentIndex);
            // ResizeCube(CurrentIndex);
   
             if (PhotonView.Find(SequenceItems[CurrentIndex].GetComponent<PhotonView>().ViewID).gameObject.GetComponent<pcInteraction>().isActiveToPlay == true)
@@ -122,6 +122,7 @@ public class PCSequencer : MonoBehaviour
         {
             if (i == index)
                 PhotonView.Find(SequenceItems[i].GetComponent<PhotonView>().ViewID).gameObject.transform.localScale = new Vector3(1f, 1.5f, 1f);
+              //  PhotonView.Find(SequenceItems[i].GetComponent<PhotonView>().ViewID).gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(1f, 1.5f, 1f);
             else
                 PhotonView.Find(SequenceItems[i].GetComponent<PhotonView>().ViewID).gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
         }

@@ -20,6 +20,8 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Demos
         public string note;
         private PhotonView myPV;
         private int myPVInt;
+        public bool active = false;
+        
         [SerializeField]
         private float rotateSpeed = 300.0f;
 
@@ -27,30 +29,37 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Demos
         {
             myPV = GetComponent<PhotonView>();
             myPVInt = this.GetComponent<PhotonView>().ViewID;
-        
+            active = PhotonView.Find(myPVInt).gameObject.GetComponent<HandInteractionTouchRotate>().active;
             myPVMeshRend = PhotonView.Find(myPVInt).gameObject.GetComponentInChildren<MeshRenderer>();
+            targetObjectTransform = PhotonView.Find(myPVInt).transform;
+
         }
 
         [PunRPC]
         public void RPC_OnTriggerDrumPad(int viewID)
         {
-           
-            myPVMeshRend.GetComponent<MeshRenderer>().material = on;
-            SerialCommunication.sendNote(note);
+          
+            
+                active = true;
+                myPVMeshRend.GetComponent<MeshRenderer>().material = on;
+                SerialCommunication.sendNote(note);
+            
         }
 
         [PunRPC]
         public void RPC_OnStopDrumPad(int viewID)
         {
-
-            myPVMeshRend.GetComponent<MeshRenderer>().material = off;
-            //SerialCommunication.sendNote(note);
+          
+                active = false;
+                myPVMeshRend.GetComponent<MeshRenderer>().material = off;
+            
         }
 
         void IMixedRealityTouchHandler.OnTouchStarted(HandTrackingInputEventData eventData)
         {
-            if (targetObjectTransform != null)
+            if (targetObjectTransform != null && !active)
             {
+                this.active = true;
                 PhotonView.Find(myPVInt).RPC("RPC_OnTriggerDrumPad", RpcTarget.All, myPVInt);
             }
         }
@@ -59,9 +68,10 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Demos
 
         void IMixedRealityTouchHandler.OnTouchCompleted(HandTrackingInputEventData eventData) 
         {
-            if (targetObjectTransform != null)
+            if (targetObjectTransform != null && active)
             {
-
+                this.active = false ;
+                myPVMeshRend.GetComponent<MeshRenderer>().material = off;
                 PhotonView.Find(myPVInt).RPC("RPC_OnStopDrumPad", RpcTarget.All, myPVInt);
             }
         }
