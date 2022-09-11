@@ -13,6 +13,8 @@ public class PCSequencer : MonoBehaviour
 
     [Header("Sequence Controller")]
     private PhotonView myPV;
+    public Mesh on;
+    public Mesh off;
     [Tooltip("Drag in a bunch of GameObject you want in the sequence (must be in correct order before dragging in).")]
     /// <summary>
     /// List of GameObjects in sequence (must be in correct order)
@@ -28,6 +30,8 @@ public class PCSequencer : MonoBehaviour
     /// The current sequence index.
     /// </summary>
     public int CurrentIndex
+
+
     {
         get { return _currentIndex; }
         set
@@ -87,8 +91,10 @@ public class PCSequencer : MonoBehaviour
         {
             // Debug.Log("what the index:  " + CurrentIndex);
 
-
-           myPV.RPC("ResizeCube", RpcTarget.All,CurrentIndex);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                myPV.RPC("ResizeCube", RpcTarget.All, CurrentIndex);
+            }
            // ResizeCube(CurrentIndex);
   
             if (PhotonView.Find(SequenceItems[CurrentIndex].GetComponent<PhotonView>().ViewID).gameObject.GetComponent<pcInteraction>().isActiveToPlay == true)
@@ -113,18 +119,22 @@ public class PCSequencer : MonoBehaviour
           
         }
     }
-
     [PunRPC]
     void ResizeCube(int index)
     {
-
-        for (int i = 0; i < SequenceItems.Length; i++)
+       
         {
-            if (i == index)
-                PhotonView.Find(SequenceItems[i].GetComponent<PhotonView>().ViewID).gameObject.transform.localScale = new Vector3(1f, 1.5f, 1f);
-              //  PhotonView.Find(SequenceItems[i].GetComponent<PhotonView>().ViewID).gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(1f, 1.5f, 1f);
-            else
-                PhotonView.Find(SequenceItems[i].GetComponent<PhotonView>().ViewID).gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+            for (int i = 0; i < SequenceItems.Length; i++)
+            {
+                if (i == index)
+                    PhotonView.Find(SequenceItems[i].GetComponent<PhotonView>().ViewID).gameObject.GetComponent<MeshFilter>().mesh = on;
+              //  SequenceItems[i].gameObject.GetComponent<MeshFilter>().mesh = on;
+
+                else
+                    PhotonView.Find(SequenceItems[i].GetComponent<PhotonView>().ViewID).gameObject.GetComponent<MeshFilter>().mesh = off;
+               // SequenceItems[i].gameObject.GetComponent<MeshFilter>().mesh = off;
+                //PhotonView.Find(SequenceItems[i].GetComponent<PhotonView>().ViewID).gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+            }
         }
     }
 
