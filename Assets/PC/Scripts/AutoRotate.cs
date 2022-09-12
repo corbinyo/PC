@@ -1,16 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Microsoft.MixedReality.Toolkit.UI;
 
 public class AutoRotate : MonoBehaviour
 {
-    public float Speed = 5.0f;
+    public float Speed;
 
     public bool RotateOnX = true;
     public bool RotateOnY = true;
     public bool RotateOnZ = true;
 
-    void Update()
+
+    public void OnSliderUpdated(SliderEventData eventData)
+    {
+       
+           Speed = float.Parse($"{eventData.NewValue:F2}") * 100;
+        
+    }
+
+
+
+
+
+
+
+void Update()
     {
         Vector3 rotFactor = Vector3.one * Speed;
 

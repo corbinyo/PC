@@ -93,6 +93,8 @@ public class SecCheck : MonoBehaviour
 
         myPVMeshRend.GetComponent<MeshRenderer>().material = on;
 
+
+
         //Passing all information to  the sphere
 
         PhotonView.Find(viewID).gameObject.GetComponent<CheckInsideWheel>().activeNote = note;
