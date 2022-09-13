@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using Microsoft.MixedReality.Toolkit.UI;
 
 public class SecCheck : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class SecCheck : MonoBehaviour
     public Material on;
     public Material off;
     public Material manip;
+    public GameObject avoid;
+
     //this script is called when the "Sec" is manipulated. It checks to see if it is currently in active in a Sequencer
     // Start is called before the first frame update
     void Start()
@@ -26,12 +29,23 @@ public class SecCheck : MonoBehaviour
         mySecCheck = PhotonView.Find(myPVInt).gameObject.GetComponent<SecCheck>();
         rb = PhotonView.Find(myPVInt).gameObject.GetComponent<Rigidbody>();
         myPVMeshRend = PhotonView.Find(myPVInt).gameObject.GetComponent<MeshRenderer>();
-      
-    }
+       // avoid = GameObject.FindWithTag("LWTrigger");
 
-    [PunRPC]
+        if (avoid != null)
+        {
+            Physics.IgnoreCollision(avoid.GetComponent<Collider>(), myPV.gameObject.GetComponent<Collider>(), true);
+        }
+        else
+        {
+            Debug.Log("coulnd't find objects to avoid");
+        }
+    }
+   
+
+        [PunRPC]
     void RPC_startManipulate()
     {
+        isActiveInSeq = false;
        rb.constraints = RigidbodyConstraints.None;
        
     }
@@ -78,6 +92,7 @@ public class SecCheck : MonoBehaviour
         PhotonView.Find(viewID).gameObject.GetComponent<checkInside>().sequencerBoxActive = true;
 
         PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material = on;
+        myPV.gameObject.GetComponent<ObjectManipulator>().ForceEndManipulation();
         //calls the RPC on checkinside script
         PhotonView.Find(viewID).RPC("RPC_OnTriggerCollideWithDodec", RpcTarget.All);
     }
@@ -102,6 +117,8 @@ public class SecCheck : MonoBehaviour
         PhotonView.Find(viewID).gameObject.GetComponent<CheckInsideWheel>().wheelBox.GetComponent<MeshRenderer>().material = on;
         
         PhotonView.Find(viewID).gameObject.GetComponent<CheckInsideWheel>().dodec = this.gameObject;
+
+        myPV.gameObject.GetComponent<ObjectManipulator>().ForceEndManipulation();
 
         // PhotonView.Find(myPVInt).gameObject.transform.SetParent(PhotonView.Find(viewID).gameObject.transform);
 
@@ -165,7 +182,7 @@ public class SecCheck : MonoBehaviour
     void RPC_OnTriggerExitWheel(int viewID)
     {
         
-        Debug.Log("on ecit wheel box");
+        Debug.Log("on exit wheel box");
 
         rb.constraints = RigidbodyConstraints.None;
 

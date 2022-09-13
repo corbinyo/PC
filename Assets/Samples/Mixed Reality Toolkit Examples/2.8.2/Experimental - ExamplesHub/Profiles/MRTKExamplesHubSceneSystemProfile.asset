@@ -16,16 +16,16 @@ MonoBehaviour:
   useManagerScene: 0
   managerScene:
     Name: DefaultManagerScene
-    Path: Assets/MRTK/Services/SceneSystem/SceneSystemResources/DefaultManagerScene.unity
-    Included: 0
-    BuildIndex: -1
+    Path: Assets/Samples/Mixed Reality Toolkit Foundation/2.8.2/Scene System Resources/DefaultManagerScene.unity
+    Included: 1
+    BuildIndex: 2
     Tag: Untagged
     Asset: {fileID: 102900000, guid: ae7bb08d297fb69408695d8de0962524, type: 3}
   useLightingScene: 0
   defaultLightingSceneIndex: 0
   lightingScenes:
   - Name: DefaultLightingScene
-    Path: Assets/MRTK/Services/SceneSystem/SceneSystemResources/DefaultLightingScene.unity
+    Path: Assets/Samples/Mixed Reality Toolkit Foundation/2.8.2/Scene System Resources/DefaultLightingScene.unity
     Included: 0
     BuildIndex: -1
     Tag: Untagged
@@ -38,8 +38,8 @@ MonoBehaviour:
     Tag: Untagged
     Asset: {fileID: 102900000, guid: 63a00118e809c754f9c7911bb85d635f, type: 3}
   - Name: HandInteractionExamples
-    Path: Assets/MRTK/Examples/Demos/HandTracking/Scenes/HandInteractionExamples.unity
-    Included: 1
+    Path: Assets/Samples/Mixed Reality Toolkit Examples/2.8.2/Demos - HandTracking/Scenes/HandInteractionExamples.unity
+    Included: 0
     BuildIndex: -1
     Tag: Untagged
     Asset: {fileID: 102900000, guid: 3dd4a396b5225f8469b9a1eb608bfa57, type: 3}
@@ -74,8 +74,8 @@ MonoBehaviour:
     Tag: Untagged
     Asset: {fileID: 102900000, guid: b2d06bb8d7f107d4783a56c796c5c120, type: 3}
   - Name: HandMenuExamples
-    Path: Assets/MRTK/Examples/Demos/HandTracking/Scenes/HandMenuExamples.unity
-    Included: 1
+    Path: Assets/Samples/Mixed Reality Toolkit Examples/2.8.2/Demos - HandTracking/Scenes/HandMenuExamples.unity
+    Included: 0
     BuildIndex: -1
     Tag: Untagged
     Asset: {fileID: 102900000, guid: 2792ec9767804e644906ab978f2eed23, type: 3}
@@ -116,8 +116,8 @@ MonoBehaviour:
     Tag: Untagged
     Asset: {fileID: 102900000, guid: 2d6c43a82f3a88c4dbdc3b5e99a68d8a, type: 3}
   - Name: NearMenuExamples
-    Path: Assets/MRTK/Examples/Demos/HandTracking/Scenes/NearMenuExamples.unity
-    Included: 1
+    Path: Assets/Samples/Mixed Reality Toolkit Examples/2.8.2/Demos - HandTracking/Scenes/NearMenuExamples.unity
+    Included: 0
     BuildIndex: -1
     Tag: Untagged
     Asset: {fileID: 102900000, guid: bf3eb3415bffceb41810526380c2c71c, type: 3}

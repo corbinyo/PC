@@ -112,7 +112,7 @@ public class PCSequencer : MonoBehaviour
             {
                 myPV.RPC("ResizeCube", RpcTarget.All, CurrentIndex);
             }
-           // ResizeCube(CurrentIndex);
+           //ResizeCube(CurrentIndex);
   
             if (PhotonView.Find(SequenceItems[CurrentIndex].GetComponent<PhotonView>().ViewID).gameObject.GetComponent<pcInteraction>().isActiveToPlay == true)
             {

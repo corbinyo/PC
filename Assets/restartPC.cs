@@ -3,29 +3,56 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class restartPC : MonoBehaviour
 {
-    private PhotonView myPV;
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        myPV = GetComponent<PhotonView>();
+        // Register callback for everytime a new scene is loaded
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        // Initially load the second scene additive
+        SceneManager.LoadScene(1, LoadSceneMode.Additive);
     }
-    // Update is called once per frame
-    void Update()
+
+    // Called when a new scene was loaded
+    private void OnSceneLoaded(Scene scene, LoadSceneMode loadMode)
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (loadMode == LoadSceneMode.Additive)
         {
-            myPV.RPC("RestartGame", RpcTarget.All);
+            // Set the additive loaded scene as active
+            // So new instantiated stuff goes here
+            // And so we know which scene to unload later
+            SceneManager.SetActiveScene(scene);
         }
     }
-    [PunRPC]
-    public void RestartGame()
+
+
+    public static void ReloadScene()
     {
-        //if (PhotonNetwork.IsMasterClient)
-        //{
-            PhotonNetwork.LoadLevel(0);
-        //}
+        var currentScene = SceneManager.GetActiveScene();
+        var index = currentScene.buildIndex;
+
+        SceneManager.UnloadScene(currentScene);
+
+        SceneManager.LoadScene(index, LoadSceneMode.Additive);
+    }
+
+    public static void LoadScene(string name)
+    {
+        var currentScene = SceneManager.GetActiveScene();
+
+        SceneManager.UnloadScene(currentScene);
+
+        SceneManager.LoadScene(name, LoadSceneMode.Additive);
+    }
+
+    public static void LoadScene(int index)
+    {
+        var currentScene = SceneManager.GetActiveScene();
+
+        SceneManager.UnloadScene(currentScene);
+
+        SceneManager.LoadScene(index, LoadSceneMode.Additive);
     }
 }

@@ -11,7 +11,7 @@ public class CheckInsideWheel : MonoBehaviour
     public bool wheelBoxActive;
     public string activeNote;
     public GameObject wheelBox;
-    public RemoteCall remote;
+    
     private PhotonView myPV;
     private int myPVInt;
     public GameObject dodec;
@@ -29,9 +29,14 @@ public class CheckInsideWheel : MonoBehaviour
     {
         if (dodec != null)
         {
-            if (wheelBoxActive == true)
+            if (wheelBoxActive == true && dodec.GetComponent<SecCheck>().isActiveInSeq == true)
             {
                 dodec.transform.position = transform.position;
+                
+            }
+            else
+            {
+               
             }
         }
     }
@@ -40,8 +45,8 @@ public class CheckInsideWheel : MonoBehaviour
     [PunRPC]
     public void RPC_OnWheelTrigger(int viewID)
     {
-        PhotonView.Find(myPVInt).gameObject.GetComponent<CheckInsideWheel>().wheelBox.GetComponent<MeshRenderer>().material.color = Color.yellow; 
-        PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material.color = Color.yellow;
+        //PhotonView.Find(myPVInt).gameObject.GetComponent<CheckInsideWheel>().wheelBox.GetComponent<MeshRenderer>().material.color = Color.yellow; 
+        //PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material.color = Color.yellow;
         //send to remote call (on dodec) and trigger function Serial Communication
         SerialCommunication.sendNote(activeNote);
     }
@@ -60,8 +65,8 @@ public class CheckInsideWheel : MonoBehaviour
     [PunRPC]
     public void RPC_OnWheelTriggerExit(int viewID)
     {
-        PhotonView.Find(myPVInt).gameObject.GetComponent<CheckInsideWheel>().wheelBox.GetComponent<MeshRenderer>().material.color = Color.green;
-        PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
+        //PhotonView.Find(myPVInt).gameObject.GetComponent<CheckInsideWheel>().wheelBox.GetComponent<MeshRenderer>().material.color = Color.green;
+        //PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
         //send to remote call (on dodec) and trigger function Serial Communication
         SerialCommunication.sendNote("X");
     }
