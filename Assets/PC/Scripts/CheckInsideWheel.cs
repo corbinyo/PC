@@ -14,6 +14,7 @@ public class CheckInsideWheel : MonoBehaviour
     public RemoteCall remote;
     private PhotonView myPV;
     private int myPVInt;
+    public GameObject dodec;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,18 @@ public class CheckInsideWheel : MonoBehaviour
         myPV = GetComponent<PhotonView>();
         myPVInt = this.GetComponent<PhotonView>().ViewID;
     }
+
+    private void Update()
+    {
+        if (dodec != null)
+        {
+            if (wheelBoxActive == true)
+            {
+                dodec.transform.position = transform.position;
+            }
+        }
+    }
+
 
     [PunRPC]
     public void RPC_OnWheelTrigger(int viewID)

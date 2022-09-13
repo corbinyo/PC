@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 7477742050474408106}
   - component: {fileID: 2027172511272175141}
   - component: {fileID: 1262059231140095554}
+  - component: {fileID: 4529042953043315072}
   m_Layer: 0
   m_Name: DrumPad
   m_TagString: sec
@@ -224,6 +225,7 @@ MonoBehaviour:
   - {fileID: 2498032610315501851}
   - {fileID: 7477742050474408106}
   - {fileID: 2027172511272175141}
+  - {fileID: 4529042953043315072}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -347,3 +349,19 @@ MonoBehaviour:
   scaleMinimum: 0
   scaleMaximum: 0
   relativeToInitialState: 1
+--- !u!114 &4529042953043315072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4896176609072102366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59ea5ddb2a4194e498df46cdf1245bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportIfFar: 1
+  teleportIfFarDistance: 3
+  smoothpos: 0.5
+  smoothRot: 0.5
