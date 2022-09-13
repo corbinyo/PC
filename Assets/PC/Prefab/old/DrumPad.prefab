@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 6898142764323587982}
   - component: {fileID: 7477742050474408106}
   - component: {fileID: 2027172511272175141}
+  - component: {fileID: 1262059231140095554}
   m_Layer: 0
   m_Name: DrumPad
   m_TagString: sec
@@ -120,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hostTransform: {fileID: 6962800064687648644}
   manipulationType: 3
-  twoHandedManipulationType: 7
+  twoHandedManipulationType: 0
   allowFarManipulation: 1
   useForcesForNearManipulation: 0
   oneHandRotationModeNear: 1
@@ -246,14 +247,14 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4896176609072102366}
   serializedVersion: 2
-  m_Mass: 100
-  m_Drag: 5
-  m_AngularDrag: 30
+  m_Mass: 500
+  m_Drag: 8
+  m_AngularDrag: 8
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 3
+  m_CollisionDetection: 2
 --- !u!114 &4024012857057215810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,7 +311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
   m_SynchronizeAngularVelocity: 1
-  m_TeleportEnabled: 1
+  m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
 --- !u!114 &2027172511272175141
 MonoBehaviour:
@@ -328,3 +329,21 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 1
   m_UseLocal: 1
+--- !u!114 &1262059231140095554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4896176609072102366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 820f94d57893bf843a0cd6d93313fe6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handType: 3
+  proximityType: 3
+  executionOrder: 0
+  scaleMinimum: 0
+  scaleMaximum: 0
+  relativeToInitialState: 1

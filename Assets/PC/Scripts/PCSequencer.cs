@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
-
+using Microsoft.MixedReality.Toolkit.UI;
 
 
 public class PCSequencer : MonoBehaviour
@@ -81,10 +81,27 @@ public class PCSequencer : MonoBehaviour
             ResetSequence();
         }
 
-        // When Play button press, repeat call the OnNext() method..
-        InvokeRepeating("OnNext", sequenceIntervalDelay, sequenceIntervalDelay);
+        // When Play button press, repeat call the OnNext() method...
+        StartCoroutine("func");
+        // InvokeRepeating("OnNext", sequenceIntervalDelay, sequenceIntervalDelay);
         Debug.Log("Sequence Item " + CurrentIndex);
     }
+
+
+    IEnumerator func()
+    {
+        while (true)
+        {
+            OnNext();
+           
+            yield return new WaitForSecondsRealtime(sequenceIntervalDelay); //Wait 1 second
+            
+        }
+    }
+
+
+
+
     private void OnNext()
     {
         if (CurrentIndex  < SequenceItems.Length )
@@ -119,6 +136,21 @@ public class PCSequencer : MonoBehaviour
           
         }
     }
+
+    public void OnSliderUpdated(SliderEventData eventData)
+    {
+        float current = float.Parse($"{eventData.NewValue:F2}") ;
+        myPV.RPC("SpeedAdjust", RpcTarget.All, current);
+
+    }
+
+    [PunRPC]
+    void SpeedAdjust(float speed)
+    {
+        sequenceIntervalDelay = speed;
+
+    }
+
     [PunRPC]
     void ResizeCube(int index)
     {
@@ -127,11 +159,13 @@ public class PCSequencer : MonoBehaviour
             for (int i = 0; i < SequenceItems.Length; i++)
             {
                 if (i == index)
-                    PhotonView.Find(SequenceItems[i].GetComponent<PhotonView>().ViewID).gameObject.GetComponent<MeshFilter>().mesh = on;
-              //  SequenceItems[i].gameObject.GetComponent<MeshFilter>().mesh = on;
+                    SequenceItems[i].GetComponent<MeshFilter>().mesh = on;
+                // PhotonView.Find(SequenceItems[i].GetComponent<PhotonView>().ViewID).gameObject.GetComponent<MeshFilter>().mesh = on;
+                //  SequenceItems[i].gameObject.GetComponent<MeshFilter>().mesh = on;
 
                 else
-                    PhotonView.Find(SequenceItems[i].GetComponent<PhotonView>().ViewID).gameObject.GetComponent<MeshFilter>().mesh = off;
+                    SequenceItems[i].GetComponent<MeshFilter>().mesh = off;
+                //PhotonView.Find(SequenceItems[i].GetComponent<PhotonView>().ViewID).gameObject.GetComponent<MeshFilter>().mesh = off;
                // SequenceItems[i].gameObject.GetComponent<MeshFilter>().mesh = off;
                 //PhotonView.Find(SequenceItems[i].GetComponent<PhotonView>().ViewID).gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
             }

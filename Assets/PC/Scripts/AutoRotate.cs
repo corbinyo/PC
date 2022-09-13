@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Microsoft.MixedReality.Toolkit.UI;
-
+using Photon.Pun;
+using Photon.Realtime;
 public class AutoRotate : MonoBehaviour
 {
     public float Speed;
@@ -10,19 +11,28 @@ public class AutoRotate : MonoBehaviour
     public bool RotateOnX = true;
     public bool RotateOnY = true;
     public bool RotateOnZ = true;
+    private PhotonView myPV;
+    void Start()
+    {
+        myPV = GetComponent<PhotonView>();
+     
 
+
+    }
+    [PunRPC]
+    void SpeedAdjust(float speed)
+    {
+        Speed = speed;
+
+    }
 
     public void OnSliderUpdated(SliderEventData eventData)
     {
+        float current = float.Parse($"{eventData.NewValue:F2}") * 100;
+        myPV.RPC("SpeedAdjust", RpcTarget.All, current);
        
-           Speed = float.Parse($"{eventData.NewValue:F2}") * 100;
         
     }
-
-
-
-
-
 
 
 void Update()

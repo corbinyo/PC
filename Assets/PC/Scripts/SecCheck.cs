@@ -87,13 +87,11 @@ public class SecCheck : MonoBehaviour
     {
         Debug.Log("on enter wheel box");
 
-        rb.constraints = RigidbodyConstraints.FreezeAll;
+      //  rb.constraints = RigidbodyConstraints.FreezeAll;
 
         mySecCheck.isActiveInSeq = true;
 
         myPVMeshRend.GetComponent<MeshRenderer>().material = on;
-
-
 
         //Passing all information to  the sphere
 
@@ -103,7 +101,7 @@ public class SecCheck : MonoBehaviour
 
         PhotonView.Find(viewID).gameObject.GetComponent<CheckInsideWheel>().wheelBox.GetComponent<MeshRenderer>().material = on;
 
-        PhotonView.Find(myPVInt).gameObject.transform.parent = PhotonView.Find(viewID).gameObject.transform;
+        PhotonView.Find(myPVInt).gameObject.transform.parent = PhotonView.Find(viewID).gameObject.transform.GetChild(1);
 
         //calls the RPC on checkinsidewheel script
        // PhotonView.Find(viewID).RPC("RPC_OnTriggerCollideWithDodec", RpcTarget.All);
