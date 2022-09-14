@@ -10,7 +10,7 @@ using Microsoft.MixedReality.Toolkit.UI;
 
 public class PCSequencer : MonoBehaviour
 {
-
+    public bool play = true;
     [Header("Sequence Controller")]
     private PhotonView myPV;
     public Mesh on;
@@ -30,7 +30,7 @@ public class PCSequencer : MonoBehaviour
     /// The current sequence index.
     /// </summary>
     public int CurrentIndex
-
+     
 
     {
         get { return _currentIndex; }
@@ -104,36 +104,39 @@ public class PCSequencer : MonoBehaviour
 
     private void OnNext()
     {
-        if (CurrentIndex  < SequenceItems.Length )
+        if (play == true)
         {
-            // Debug.Log("what the index:  " + CurrentIndex);
+            if (CurrentIndex < SequenceItems.Length)
+            {
+                // Debug.Log("what the index:  " + CurrentIndex);
 
-            if (PhotonNetwork.IsMasterClient)
-            {
-                myPV.RPC("ResizeCube", RpcTarget.All, CurrentIndex);
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    myPV.RPC("ResizeCube", RpcTarget.All, CurrentIndex);
+                }
+                //ResizeCube(CurrentIndex);
+
+                if (PhotonView.Find(SequenceItems[CurrentIndex].GetComponent<PhotonView>().ViewID).gameObject.GetComponent<pcInteraction>().isActiveToPlay == true)
+                {
+                    Debug.Log("PlayNOte:  " + CurrentIndex);
+                    SerialCommunication.sendNote(PhotonView.Find(SequenceItems[CurrentIndex].GetComponent<PhotonView>().ViewID).GetComponent<pcInteraction>().allCheckInsideSphere.currentNote);
+                    Debug.Log("sending note to arduino from sequencer");
+
+                }
+                else if (SequenceItems[CurrentIndex].GetComponent<pcInteraction>().isActiveToPlay == false)
+                {
+
+                }
+                CurrentIndex++;
             }
-           //ResizeCube(CurrentIndex);
-  
-            if (PhotonView.Find(SequenceItems[CurrentIndex].GetComponent<PhotonView>().ViewID).gameObject.GetComponent<pcInteraction>().isActiveToPlay == true)
+            else
             {
-                Debug.Log("PlayNOte:  " + CurrentIndex);
-                SerialCommunication.sendNote(PhotonView.Find(SequenceItems[CurrentIndex].GetComponent<PhotonView>().ViewID).GetComponent<pcInteraction>().allCheckInsideSphere.currentNote);
-                Debug.Log("sending note to arduino from sequencer");
-              
+
+
+                ResetSequence();
+
+
             }
-            else if (SequenceItems[CurrentIndex].GetComponent<pcInteraction>().isActiveToPlay == false)
-            {
-               
-            }
-            CurrentIndex++;
-        }
-        else
-        {
-           
-      
-            ResetSequence();
-          
-          
         }
     }
 

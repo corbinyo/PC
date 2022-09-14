@@ -75,6 +75,7 @@ MonoBehaviour:
   - RPC_OnTriggerDrumPad
   - OnSliderUpdated
   - SpeedAdjust
+  - changeText_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
