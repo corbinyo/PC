@@ -6,18 +6,28 @@ using Microsoft.MixedReality.Toolkit.UI;
 using TMPro;
 public class SliderControl : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private TextMeshPro textMesh = null;
+    private PhotonView myPV;
+   
+
+    [PunRPC]
+    public void ChangeSliderValue_RPC(float speedVisual)
     {
-        
+        if (textMesh == null)
+        {
+            textMesh = GetComponent<TextMeshPro>();
+        }
+
+        if (textMesh != null)
+        {
+            textMesh.text = speedVisual.ToString();
+        }
     }
+
     public void OnSliderUpdated(SliderEventData eventData)
     {
-
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+            myPV.RPC("PlayPause_RPC", RpcTarget.AllBuffered, float.Parse($"{eventData.NewValue:F2}"));
+        }
 }
+
