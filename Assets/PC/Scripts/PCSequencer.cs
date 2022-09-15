@@ -8,6 +8,7 @@ using Photon.Realtime;
 using Microsoft.MixedReality.Toolkit.UI;
 using System;
 using UnityEngine.Events;
+using TMPro;
 
 
 
@@ -15,6 +16,8 @@ public class PCSequencer : MonoBehaviour
 {
     public UnityEvent BigExplosionEvent;
     public bool play = true;
+    public TMPro.TextMeshPro text;
+  
     [Header("Sequence Controller")]
     private PhotonView myPV;
     public Mesh on;
@@ -71,9 +74,18 @@ public class PCSequencer : MonoBehaviour
     }
 
     [PunRPC]
-    public void PlayPause()
+    public void PlayPause_RPC()
     {
         play = !play;
+
+        if (play)
+        {
+            text.text = "PAUSE";
+        }
+        else
+        {
+            text.text = "PLAY";
+        }
     }
 
 
@@ -122,10 +134,10 @@ public class PCSequencer : MonoBehaviour
             {
                 // Debug.Log("what the index:  " + CurrentIndex);
 
-                // if (PhotonNetwork.IsMasterClient)
-                // {
-                myPV.RPC("ResizeCube", RpcTarget.All, CurrentIndex);
-                // }
+                if (myPV.IsMine)
+                {
+                    myPV.RPC("ResizeCube", RpcTarget.AllBuffered, CurrentIndex);
+                 }
 
 
                 if (PhotonView.Find(SequenceItems[CurrentIndex].GetComponent<PhotonView>().ViewID).gameObject.GetComponent<pcInteraction>().isActiveToPlay == true)
@@ -157,14 +169,13 @@ public class PCSequencer : MonoBehaviour
     public void OnSliderUpdated(SliderEventData eventData)
     {
 
-        myPV.RPC("SeqSpeed_RPC", RpcTarget.All, float.Parse($"{eventData.NewValue:F2}"));
+        myPV.RPC("SeqSpeed_RPC", RpcTarget.AllBuffered, float.Parse($"{eventData.NewValue:F2}"));
 
     }
 
     [PunRPC]
     void ResizeCube(int index)
     {
-       
         {
             for (int i = 0; i < SequenceItems.Length; i++)
             {

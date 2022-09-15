@@ -34,14 +34,14 @@ public class checkInside : MonoBehaviour
     public void RPC_OnTriggerCollideWithDodec()
     {
         Debug.Log("RPC called on checkINside Script");
-        PhotonView.Find(mySeqBoxPVInt).RPC("RPC_setToPlay", RpcTarget.All);
+        PhotonView.Find(mySeqBoxPVInt).RPC("RPC_setToPlay", RpcTarget.AllBuffered);
 
     }
 
     [PunRPC]
     void RPC_OnTriggerExitCollideWithDodec()
     {
-        PhotonView.Find(mySeqBoxPVInt).RPC("RPC_setToStop", RpcTarget.All);
+        PhotonView.Find(mySeqBoxPVInt).RPC("RPC_setToStop", RpcTarget.AllBuffered);
 
     }
 }

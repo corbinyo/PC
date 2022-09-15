@@ -62,13 +62,13 @@ public class pcInteraction : MonoBehaviourPun
 public void SoundYes()
     {
         Debug.Log("is this a thing?");
-        this.photonView.RPC("PlayBell", RpcTarget.All);
+        this.photonView.RPC("PlayBell", RpcTarget.AllBuffered);
         
     }
     public void SoundNo()
         {
         Debug.Log("is this a thing?");
-        this.photonView.RPC("StopBell", RpcTarget.All);
+        this.photonView.RPC("StopBell", RpcTarget.AllBuffered);
             
         }
 }

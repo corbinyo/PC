@@ -15,6 +15,9 @@ public class CheckInsideWheel : MonoBehaviour
     private PhotonView myPV;
     private int myPVInt;
     public GameObject dodec;
+
+    public Material Green;
+    public Material Red;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +49,7 @@ public class CheckInsideWheel : MonoBehaviour
     public void RPC_OnWheelTrigger(int viewID)
     {
         //PhotonView.Find(myPVInt).gameObject.GetComponent<CheckInsideWheel>().wheelBox.GetComponent<MeshRenderer>().material.color = Color.yellow; 
-        //PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material.color = Color.yellow;
+        PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material = Red;
         //send to remote call (on dodec) and trigger function Serial Communication
         SerialCommunication.sendNote(activeNote);
     }
@@ -58,7 +61,7 @@ public class CheckInsideWheel : MonoBehaviour
             int viewIDOfObject = collision.GetComponent<PhotonView>().ViewID;
  
             //calls the RPC on this script
-            PhotonView.Find(myPVInt).RPC("RPC_OnWheelTrigger", RpcTarget.All, viewIDOfObject);
+            PhotonView.Find(myPVInt).RPC("RPC_OnWheelTrigger", RpcTarget.AllBuffered, viewIDOfObject);
         }
     }
 
@@ -66,7 +69,7 @@ public class CheckInsideWheel : MonoBehaviour
     public void RPC_OnWheelTriggerExit(int viewID)
     {
         //PhotonView.Find(myPVInt).gameObject.GetComponent<CheckInsideWheel>().wheelBox.GetComponent<MeshRenderer>().material.color = Color.green;
-        //PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
+        PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material = Green;
         //send to remote call (on dodec) and trigger function Serial Communication
         SerialCommunication.sendNote("X");
     }
@@ -78,7 +81,7 @@ public class CheckInsideWheel : MonoBehaviour
             int viewIDOfObject = collision.GetComponent<PhotonView>().ViewID;
 
             //calls the RPC on this script
-            PhotonView.Find(myPVInt).RPC("RPC_OnWheelTriggerExit", RpcTarget.All, viewIDOfObject);
+            PhotonView.Find(myPVInt).RPC("RPC_OnWheelTriggerExit", RpcTarget.AllBuffered, viewIDOfObject);
         }
     }
 

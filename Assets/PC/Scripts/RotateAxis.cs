@@ -5,7 +5,7 @@ using Microsoft.MixedReality.Toolkit.UI;
 using Photon.Pun;
 using System;
 using UnityEngine.Events;
-
+using TMPro;
 public class RotateAxis : MonoBehaviour
 {
     //Rotational Speed
@@ -25,7 +25,7 @@ public class RotateAxis : MonoBehaviour
 
     private PhotonView myPV;
     public UnityEvent BigExplosionEvent;
-
+    public TMPro.TextMeshPro text;
     void Start()
     {
         myPV = this.GetComponent<PhotonView>();
@@ -45,12 +45,20 @@ public class RotateAxis : MonoBehaviour
     public void PlayPause_RPC()
     {
         play = !play;
+        if (play)
+        {
+            text.text = "PAUSE";
+        }
+        else
+        {
+            text.text = "PLAY";
+        }
     }
 
 
     public void ExplodeMe()
     {
-        myPV.RPC("PlayPause_RPC", RpcTarget.All);
+        myPV.RPC("PlayPause_RPC", RpcTarget.AllBuffered);
         
     }
 
@@ -64,7 +72,7 @@ public class RotateAxis : MonoBehaviour
         public void OnSliderUpdated(SliderEventData eventData)
     {
         
-        myPV.RPC("WheelSpeed_RPC", RpcTarget.All, float.Parse($"{eventData.NewValue:F2}") * 100f);
+        myPV.RPC("WheelSpeed_RPC", RpcTarget.AllBuffered, float.Parse($"{eventData.NewValue:F2}") * 200f);
 
     }
 

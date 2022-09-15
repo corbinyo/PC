@@ -52,7 +52,7 @@ public class SecCheck : MonoBehaviour
 
     public void startManipulate()
     {
-        myPV.RPC("RPC_startManipulate", RpcTarget.All);
+        myPV.RPC("RPC_startManipulate", RpcTarget.AllBuffered);
         Debug.Log("start manip");
     }
 
@@ -69,7 +69,7 @@ public class SecCheck : MonoBehaviour
 
     public void endManipulate()
     {
-        myPV.RPC("RPC_endManipulate", RpcTarget.All);
+        myPV.RPC("RPC_endManipulate", RpcTarget.AllBuffered);
         Debug.Log("end manip");
     }
 
@@ -94,7 +94,7 @@ public class SecCheck : MonoBehaviour
         PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material = on;
         myPV.gameObject.GetComponent<ObjectManipulator>().ForceEndManipulation();
         //calls the RPC on checkinside script
-        PhotonView.Find(viewID).RPC("RPC_OnTriggerCollideWithDodec", RpcTarget.All);
+        PhotonView.Find(viewID).RPC("RPC_OnTriggerCollideWithDodec", RpcTarget.AllBuffered);
     }
 
     [PunRPC]
@@ -137,7 +137,7 @@ public class SecCheck : MonoBehaviour
             int viewIDOfObject = collision.GetComponent<PhotonView>().ViewID;
 
             //calls the RPC on this script
-            PhotonView.Find(myPVInt).RPC("RPC_OnTriggerEnterWheel", RpcTarget.All, viewIDOfObject);
+            PhotonView.Find(myPVInt).RPC("RPC_OnTriggerEnterWheel", RpcTarget.AllBuffered, viewIDOfObject);
            
             Debug.Log("RPC_OnTriggerWheelFunction Called" + "Sequencer Added To Collider" + collision.gameObject.name);
 
@@ -149,7 +149,7 @@ public class SecCheck : MonoBehaviour
             int viewIDOfObject = collision.GetComponent<PhotonView>().ViewID;
 
             //calls the RPC on this script
-            PhotonView.Find(myPVInt).RPC("RPC_OnTriggerEnterSequencer", RpcTarget.All, viewIDOfObject);
+            PhotonView.Find(myPVInt).RPC("RPC_OnTriggerEnterSequencer", RpcTarget.AllBuffered, viewIDOfObject);
 
             Debug.Log("RPC_OnTriggerSequencer Function Called" + "Sequencer Added To Collider" + collision.gameObject.name);
 
@@ -175,7 +175,7 @@ public class SecCheck : MonoBehaviour
 
         PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material = off;
         //calls the RPC on checkinside script
-        PhotonView.Find(viewID).RPC("RPC_OnTriggerExitCollideWithDodec", RpcTarget.All);
+        PhotonView.Find(viewID).RPC("RPC_OnTriggerExitCollideWithDodec", RpcTarget.AllBuffered);
     }
 
     [PunRPC]
@@ -217,7 +217,7 @@ public class SecCheck : MonoBehaviour
         {
             int viewIDOfObject = collision.GetComponent<PhotonView>().ViewID;
             //calls the RPC on this script
-            PhotonView.Find(myPVInt).RPC("RPC_OnTriggerExitWheel", RpcTarget.All, viewIDOfObject);
+            PhotonView.Find(myPVInt).RPC("RPC_OnTriggerExitWheel", RpcTarget.AllBuffered, viewIDOfObject);
 
             Debug.Log("RPC_OnTriggerExitWheel Function Called" + "Sequencer Removed From Collider" + collision.gameObject.name);
 
@@ -229,7 +229,7 @@ public class SecCheck : MonoBehaviour
             int viewIDOfObject = collision.GetComponent<PhotonView>().ViewID;
 
             //calls the RPC on this script
-            PhotonView.Find(myPVInt).RPC("RPC_OnTriggerExitSequencer", RpcTarget.All, viewIDOfObject);
+            PhotonView.Find(myPVInt).RPC("RPC_OnTriggerExitSequencer", RpcTarget.AllBuffered, viewIDOfObject);
 
             Debug.Log("RPC_OnTriggerExitSequencer Function Called" + "Sequencer Removed From Collider" + collision.gameObject.name);
 
