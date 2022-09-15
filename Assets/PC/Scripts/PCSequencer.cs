@@ -90,7 +90,7 @@ public class PCSequencer : MonoBehaviour
 
     IEnumerator func()
     {
-        while (true)
+        while (true && play == true)
         {
             OnNext();
            
@@ -104,8 +104,7 @@ public class PCSequencer : MonoBehaviour
 
     private void OnNext()
     {
-        if (play == true)
-        {
+        
             if (CurrentIndex < SequenceItems.Length)
             {
                 // Debug.Log("what the index:  " + CurrentIndex);
@@ -131,12 +130,8 @@ public class PCSequencer : MonoBehaviour
             }
             else
             {
-
-
                 ResetSequence();
 
-
-            }
         }
     }
 
@@ -163,14 +158,9 @@ public class PCSequencer : MonoBehaviour
             {
                 if (i == index)
                     SequenceItems[i].GetComponent<MeshFilter>().mesh = on;
-                // PhotonView.Find(SequenceItems[i].GetComponent<PhotonView>().ViewID).gameObject.GetComponent<MeshFilter>().mesh = on;
-                //  SequenceItems[i].gameObject.GetComponent<MeshFilter>().mesh = on;
-
                 else
                     SequenceItems[i].GetComponent<MeshFilter>().mesh = off;
-                //PhotonView.Find(SequenceItems[i].GetComponent<PhotonView>().ViewID).gameObject.GetComponent<MeshFilter>().mesh = off;
-               // SequenceItems[i].gameObject.GetComponent<MeshFilter>().mesh = off;
-                //PhotonView.Find(SequenceItems[i].GetComponent<PhotonView>().ViewID).gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+                
             }
         }
     }

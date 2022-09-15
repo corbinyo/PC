@@ -12,53 +12,75 @@ public class OnOff : MonoBehaviour
     public TMPro.TMP_Text mytext;
 
     public int counter = 0;
+
     private PhotonView myPV;
     public AutoRotate autoRotate;
     public PCSequencer pcSequencer;
+    private OnOff onOff;
     void Start()
     {
         myPV = this.GetComponent<PhotonView>();
         mytext = myPV.GetComponent<OnOff>().mytext;
+        onOff = myPV.GetComponent<OnOff>().onOff;
     }
 
+  
+    //public void PlayPauseWheel()
+    //{
+    //    myPV.RPC("PauseWheel_RPC", RpcTarget.All);
+    //}
 
-    public void PlayPause()
-    {
-        myPV.RPC("changeText_RPC", RpcTarget.All);
-    }
+    //public void PlayPauseSequencer()
+    //{
+    //    myPV.RPC("PauseSeq_RPC", RpcTarget.All);
+    //}
 
-    [PunRPC]
-    public void changeText_RPC()
-    {
-        counter++;
-        if (counter % 2 == 1)
-        {
-            Debug.Log("Pause");
-            mytext.text = "PLAY";
-            if (autoRotate != null)
-            {
-                autoRotate.play = false;
-            }
-            if (pcSequencer != null)
-            {
-              pcSequencer.play = false;
-            }
-           
-        }
-        else
-        {
-            Debug.Log("Play");
-            mytext.text = "PAUSE";
-            if (autoRotate != null)
-            {
-                autoRotate.play = true;
-            }
-            if (pcSequencer != null)
-            {
-                pcSequencer.play = true;
-            }
-            mytext.text = "Start";
+    //[PunRPC]
+    //public void PauseSeq_RPC()
+    //{
+    //    counter++;
+    //    if (counter % 2 == 1)
+    //    {
+    //        Debug.Log("PAUSE");
+    //        mytext.text = "PLAY";
             
-        }
-    }
+    //            pcSequencer.play = false;
+            
+           
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("PAUSE");
+    //        mytext.text = "PAUSE";
+
+    //        pcSequencer.play = true;
+            
+    //    }
+    //}
+
+    //[PunRPC]
+    //public void PauseWheel_RPC()
+    //{
+    //    counter++;
+    //    if (counter % 2 == 1)
+    //    {
+    //        Debug.Log("PAUSE");
+    //        mytext.text = "PLAY";
+
+
+    //        autoRotate.play = false;
+            
+
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("PLAY");
+    //        mytext.text = "PAUSE";
+
+    //        autoRotate.play = true;
+            
+        
+
+    //    }
+    //}
 }

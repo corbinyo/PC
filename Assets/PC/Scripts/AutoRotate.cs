@@ -17,30 +17,31 @@ public class AutoRotate : MonoBehaviour
     {
        myPV = GetComponent<PhotonView>();
        
-      //pinchSlider = myPV.GetComponent<AutoRotate>().pinchSlider;
+      pinchSlider = myPV.GetComponent<AutoRotate>().pinchSlider;
 
 
     }
     [PunRPC]
-    void SpeedAdjust(float speed)
+    void SpeedAdjustWheel(float speed)
     {
-        //Speed = speed;
-        //Debug.Log("the speed is : " + speed);
-        //if (!myPV.IsMine)
-        //{
-        //    pinchSlider.SliderValue = speed;
-        //}
+        Speed = speed;
+        Debug.Log("the speed is : " + speed);
+        if (!myPV.IsMine)
+        {
+            pinchSlider.SliderValue = speed;
+        }
 
     }
-    
+
     public void OnSliderUpdated(SliderEventData eventData)
     {
 
         Speed = float.Parse($"{eventData.NewValue:F2}") * 100f;
 
-
-       // myPV.RPC("SpeedAdjust", RpcTarget.All, eventData);
-       
+        if (pinchSlider != null)
+        {
+            myPV.RPC("SpeedAdjustWheel", RpcTarget.All, Speed);
+        }
         
     }
 

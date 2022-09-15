@@ -76,6 +76,11 @@ MonoBehaviour:
   - OnSliderUpdated
   - SpeedAdjust
   - changeText_RPC
+  - PlayPause
+  - SpeedAdjustWheel
+  - PauseSeq_RPC
+  - PlayPauseWheel
+  - PauseWheel_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
