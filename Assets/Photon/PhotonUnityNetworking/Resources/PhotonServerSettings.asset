@@ -81,6 +81,9 @@ MonoBehaviour:
   - PauseSeq_RPC
   - PlayPauseWheel
   - PauseWheel_RPC
+  - PlayPause_RPC
+  - WheelSpeed_RPC
+  - SeqSpeed_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

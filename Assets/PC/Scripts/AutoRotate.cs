@@ -22,10 +22,10 @@ public class AutoRotate : MonoBehaviour
 
     }
     [PunRPC]
-    void SpeedAdjustWheel(float speed)
+    void SpeedAdjust(float speed)
     {
         Speed = speed;
-        Debug.Log("the speed is : " + speed);
+        //Debug.Log("the speed is : " + speed);
         if (!myPV.IsMine)
         {
             pinchSlider.SliderValue = speed;
@@ -38,10 +38,9 @@ public class AutoRotate : MonoBehaviour
 
         Speed = float.Parse($"{eventData.NewValue:F2}") * 100f;
 
-        if (pinchSlider != null)
-        {
-            myPV.RPC("SpeedAdjustWheel", RpcTarget.All, Speed);
-        }
+
+       myPV.RPC("SpeedAdjust", RpcTarget.All, Speed);
+       
         
     }
 

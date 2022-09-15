@@ -15,6 +15,7 @@ public class OnOff : MonoBehaviour
 
     private PhotonView myPV;
     public AutoRotate autoRotate;
+    public RotateAxis rotate;
     public PCSequencer pcSequencer;
     private OnOff onOff;
     void Start()
@@ -25,62 +26,62 @@ public class OnOff : MonoBehaviour
     }
 
   
-    //public void PlayPauseWheel()
-    //{
-    //    myPV.RPC("PauseWheel_RPC", RpcTarget.All);
-    //}
+    public void PlayPauseWheel()
+    {
+        myPV.RPC("PauseWheel_RPC", RpcTarget.All);
+    }
 
-    //public void PlayPauseSequencer()
-    //{
-    //    myPV.RPC("PauseSeq_RPC", RpcTarget.All);
-    //}
+    public void PlayPauseSequencer()
+    {
+        myPV.RPC("PauseSeq_RPC", RpcTarget.All);
+    }
 
-    //[PunRPC]
-    //public void PauseSeq_RPC()
-    //{
-    //    counter++;
-    //    if (counter % 2 == 1)
-    //    {
-    //        Debug.Log("PAUSE");
-    //        mytext.text = "PLAY";
+    [PunRPC]
+    public void PauseSeq_RPC()
+    {
+        counter++;
+        if (counter % 2 == 1)
+        {
+            Debug.Log("PAUSE");
+            mytext.text = "PLAY";
             
-    //            pcSequencer.play = false;
+                pcSequencer.play = false;
             
            
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("PAUSE");
-    //        mytext.text = "PAUSE";
+        }
+        else
+        {
+            Debug.Log("PAUSE");
+            mytext.text = "PAUSE";
 
-    //        pcSequencer.play = true;
+            pcSequencer.play = true;
             
-    //    }
-    //}
+        }
+    }
 
-    //[PunRPC]
-    //public void PauseWheel_RPC()
-    //{
-    //    counter++;
-    //    if (counter % 2 == 1)
-    //    {
-    //        Debug.Log("PAUSE");
-    //        mytext.text = "PLAY";
+    [PunRPC]
+    public void PauseWheel_RPC()
+    {
+        counter++;
+        if (counter % 2 == 1)
+        {
+            Debug.Log("PAUSE");
+            mytext.text = "PLAY";
 
 
-    //        autoRotate.play = false;
+            autoRotate.play = false;
             
 
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("PLAY");
-    //        mytext.text = "PAUSE";
+        }
+        else
+        {
+            Debug.Log("PLAY");
+            mytext.text = "PAUSE";
 
-    //        autoRotate.play = true;
+            autoRotate.play = true;
             
         
 
-    //    }
-    //}
+        }
+    }
 }

@@ -6,10 +6,14 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using Microsoft.MixedReality.Toolkit.UI;
+using System;
+using UnityEngine.Events;
+
 
 
 public class PCSequencer : MonoBehaviour
 {
+    public UnityEvent BigExplosionEvent;
     public bool play = true;
     [Header("Sequence Controller")]
     private PhotonView myPV;
@@ -24,7 +28,7 @@ public class PCSequencer : MonoBehaviour
     /// <summary>
     /// The interval of time in seconds between sequences.
     /// </summary>
-    public float sequenceIntervalDelay = 2f;
+    public float sequenceIntervalDelay = 0f;
     private int _currentIndex;
     /// <summary>
     /// The current sequence index.
@@ -54,27 +58,38 @@ public class PCSequencer : MonoBehaviour
     void Start()
     {
         myPV = GetComponent<PhotonView>();
+        if (BigExplosionEvent == null)
+            BigExplosionEvent = new UnityEvent();
+
+        var targetInfo = UnityEvent.GetValidMethodInfo(this, nameof(ExplodeMe), new Type[0]);
+        UnityAction methodDelegate = Delegate.CreateDelegate(typeof(UnityAction), this, targetInfo) as UnityAction;
+        //UnityEventTools.AddPersistentListener(BigExplosionEvent, methodDelegate);
         // Ensure Sequence is reset and only the first Sequence Item is visible...
         ResetSequence();
-
         OnPlay();
-   
+ 
+    }
+
+    [PunRPC]
+    public void PlayPause()
+    {
+        play = !play;
+    }
+
+
+    public void ExplodeMe()
+    {
+        myPV.RPC("PlayPause_RPC", RpcTarget.All);
 
     }
-  public  void Update()
-    {
-        if (Input.GetKeyDown("space"))
-        {
-            OnPlay();
-            print("space key was pressed");
-        }
-    }
+
 
     /// <summary>
     /// On play button pressed.
     /// </summary>
     private void OnPlay()
     {
+        Debug.Log("on play");
         // Reset sequence back to start...
         if (CurrentIndex == SequenceItems.Length - 1)
         {
@@ -90,7 +105,7 @@ public class PCSequencer : MonoBehaviour
 
     IEnumerator func()
     {
-        while (true && play == true)
+        while (true)
         {
             OnNext();
            
@@ -99,27 +114,25 @@ public class PCSequencer : MonoBehaviour
         }
     }
 
-
-
-
     private void OnNext()
     {
-        
+       if (play)
+        {
             if (CurrentIndex < SequenceItems.Length)
             {
                 // Debug.Log("what the index:  " + CurrentIndex);
 
-                if (PhotonNetwork.IsMasterClient)
-                {
-                    myPV.RPC("ResizeCube", RpcTarget.All, CurrentIndex);
-                }
-                //ResizeCube(CurrentIndex);
+                // if (PhotonNetwork.IsMasterClient)
+                // {
+                myPV.RPC("ResizeCube", RpcTarget.All, CurrentIndex);
+                // }
+
 
                 if (PhotonView.Find(SequenceItems[CurrentIndex].GetComponent<PhotonView>().ViewID).gameObject.GetComponent<pcInteraction>().isActiveToPlay == true)
                 {
-                    Debug.Log("PlayNOte:  " + CurrentIndex);
+                   // Debug.Log("PlayNOte:  " + CurrentIndex);
                     SerialCommunication.sendNote(PhotonView.Find(SequenceItems[CurrentIndex].GetComponent<PhotonView>().ViewID).GetComponent<pcInteraction>().allCheckInsideSphere.currentNote);
-                    Debug.Log("sending note to arduino from sequencer");
+                   // Debug.Log("sending note to arduino from sequencer");
 
                 }
                 else if (SequenceItems[CurrentIndex].GetComponent<pcInteraction>().isActiveToPlay == false)
@@ -131,21 +144,20 @@ public class PCSequencer : MonoBehaviour
             else
             {
                 ResetSequence();
-
+            }
         }
     }
+    [PunRPC]
+   void SeqSpeed_RPC(float updatedSpeed)
+    {
+        sequenceIntervalDelay = updatedSpeed;
+    }
+
 
     public void OnSliderUpdated(SliderEventData eventData)
     {
-        float current = float.Parse($"{eventData.NewValue:F2}") ;
-        myPV.RPC("SpeedAdjust", RpcTarget.All, current);
 
-    }
-
-    [PunRPC]
-    void SpeedAdjust(float speed)
-    {
-        sequenceIntervalDelay = speed;
+        myPV.RPC("SeqSpeed_RPC", RpcTarget.All, float.Parse($"{eventData.NewValue:F2}"));
 
     }
 
