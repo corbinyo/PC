@@ -13,16 +13,17 @@ public class pcInteraction : MonoBehaviourPun
     public checkInside allCheckInsideSphere;
     public pcInteraction allPCInteraction;
     public MeshRenderer allSequencerBoxMesh;
-
+    public Material green;
+    public Material red;
     [PunRPC]
     private void Start()
     {
       
         myPV = GetComponent<PhotonView>();
         myPVInt = this.myPV.ViewID;
-        allPCInteraction = PhotonView.Find(myPVInt).gameObject.GetComponent<pcInteraction>();
+        allPCInteraction = myPV.gameObject.GetComponent<pcInteraction>();
    
-        allPCInteraction.allSequencerBoxMesh.material.color = Color.red;
+      
     }
     public void PlayBell(string note)
     {
@@ -31,7 +32,7 @@ public class pcInteraction : MonoBehaviourPun
       
     }
 
-    [PunRPC]
+  
    public void StopBell(string note)
     {
        
@@ -43,32 +44,35 @@ public class pcInteraction : MonoBehaviourPun
     [PunRPC]
     public void RPC_setToPlay()
     {
-        Debug.Log("is this a thing? green");
-        allPCInteraction.allSequencerBoxMesh.material.color = Color.green;
-        allPCInteraction.isActiveToPlay = true;
-        allPCInteraction.allCheckInsideSphere.sequencerBoxActive = true;
-      
-    }
+     
+            Debug.Log("is this a thing? green. LAST STOP BEFORE SEQUENCER");
+            allPCInteraction.allSequencerBoxMesh.material = green;
+            allPCInteraction.isActiveToPlay = true;
+            allPCInteraction.allCheckInsideSphere.sequencerBoxActive = true;
+        }
+    
     [PunRPC]
     public void RPC_setToStop()
     {
-        Debug.Log("is this a thing? red");
-        allPCInteraction.allSequencerBoxMesh.material.color = Color.red;
-        allPCInteraction.isActiveToPlay = false;
-        allPCInteraction.allCheckInsideSphere.sequencerBoxActive = false;
-    }
+      
+            Debug.Log("is this a thing? red. LAST STOP BEFORE SEQUENCER");
+            allPCInteraction.allSequencerBoxMesh.material = red;
+            allPCInteraction.isActiveToPlay = false;
+            allPCInteraction.allCheckInsideSphere.sequencerBoxActive = false;
+        }
+    
 
  
 public void SoundYes()
     {
         Debug.Log("is this a thing?");
-        this.photonView.RPC("PlayBell", RpcTarget.AllBuffered);
+        myPV.RPC("PlayBell", RpcTarget.All);
         
     }
     public void SoundNo()
         {
         Debug.Log("is this a thing?");
-        this.photonView.RPC("StopBell", RpcTarget.AllBuffered);
+        myPV.RPC("StopBell", RpcTarget.All);
             
         }
 }

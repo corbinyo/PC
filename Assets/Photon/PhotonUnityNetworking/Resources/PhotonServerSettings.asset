@@ -85,6 +85,8 @@ MonoBehaviour:
   - WheelSpeed_RPC
   - SeqSpeed_RPC
   - ChangeSliderValue_RPC
+  - OnPlay
+  - ResetSequence
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -15,33 +15,40 @@ public class checkInside : MonoBehaviour
     public bool sequencerBoxActive;
     public string currentNote;
     private PhotonView myPV;
-    private int mySeqBoxPVInt;
+    private PhotonView mySeqBoxPVInt;
+    //private int mySeqBoxPVInt;
     void Start()
     {
         myPV = GetComponent<PhotonView>();
-        mySeqBoxPVInt = sequencerBox.GetComponent<PhotonView>().ViewID;
+        mySeqBoxPVInt = sequencerBox.GetComponent<PhotonView>();
+
 
     }
 
     public void SphereColliderOn()
     {
-        Debug.Log("is this a thing?");
-        m_Collider.enabled = true;
+       // Debug.Log("is this a thing?");
+       m_Collider.enabled = true;
     }
 
 
     [PunRPC]
     public void RPC_OnTriggerCollideWithDodec()
     {
-        Debug.Log("RPC called on checkINside Script");
-        PhotonView.Find(mySeqBoxPVInt).RPC("RPC_setToPlay", RpcTarget.AllBuffered);
+
+        //calls RPC_setToPlay on PCINTEREACTION
+        //PhotonView.Find(mySeqBoxPVInt).RPC("RPC_setToPlay", RpcTarget.AllBuffered);
+        mySeqBoxPVInt.RPC("RPC_setToPlay", RpcTarget.All);
+        Debug.Log("RPC called on PCINTERACTION Script");
 
     }
 
     [PunRPC]
     void RPC_OnTriggerExitCollideWithDodec()
     {
-        PhotonView.Find(mySeqBoxPVInt).RPC("RPC_setToStop", RpcTarget.AllBuffered);
+        Debug.Log("RPC called on PCINTERACTION Script");
+        // PhotonView.Find(mySeqBoxPVInt).RPC("RPC_setToStop", RpcTarget.All);
+        mySeqBoxPVInt.RPC("RPC_setToStop", RpcTarget.All);
 
     }
 }

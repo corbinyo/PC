@@ -72,7 +72,7 @@ public class RotateAxis : MonoBehaviour
         public void OnSliderUpdated(SliderEventData eventData)
     {
         
-        myPV.RPC("WheelSpeed_RPC", RpcTarget.AllBuffered, float.Parse($"{eventData.NewValue:F2}") * 200f);
+        myPV.RPC("WheelSpeed_RPC", RpcTarget.AllBuffered, float.Parse($"{eventData.NewValue:F2}") * 100f);
 
     }
 

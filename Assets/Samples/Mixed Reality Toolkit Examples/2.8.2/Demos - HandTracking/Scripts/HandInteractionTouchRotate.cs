@@ -61,6 +61,7 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Demos
             {
                 this.active = true;
                 PhotonView.Find(myPVInt).RPC("RPC_OnTriggerDrumPad", RpcTarget.All, myPVInt);
+             
             }
         }
 
@@ -82,7 +83,7 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Demos
             if (targetObjectTransform != null)
             {
                 targetObjectTransform.Rotate(Vector3.up * (rotateSpeed * Time.deltaTime));
-               
+                
             }
         }
     }

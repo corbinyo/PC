@@ -20,13 +20,13 @@ public class RemoteCall : MonoBehaviour
     {
 
      myPV.RPC("PlayBell", RpcTarget.All, note);
-        Debug.Log("rpc sent");
+        Debug.Log("rpc sent sound yes");
 
     }
     [PunRPC]
     public void PlayBell(string note)
     {
-
+        Debug.Log("rpc sent playbell");
         SerialCommunication.sendNote(note);
       
     }

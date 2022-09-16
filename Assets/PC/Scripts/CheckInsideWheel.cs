@@ -49,7 +49,7 @@ public class CheckInsideWheel : MonoBehaviour
     public void RPC_OnWheelTrigger(int viewID)
     {
         //PhotonView.Find(myPVInt).gameObject.GetComponent<CheckInsideWheel>().wheelBox.GetComponent<MeshRenderer>().material.color = Color.yellow; 
-        PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material = Red;
+        PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material = Green;
         //send to remote call (on dodec) and trigger function Serial Communication
         SerialCommunication.sendNote(activeNote);
     }
@@ -69,7 +69,7 @@ public class CheckInsideWheel : MonoBehaviour
     public void RPC_OnWheelTriggerExit(int viewID)
     {
         //PhotonView.Find(myPVInt).gameObject.GetComponent<CheckInsideWheel>().wheelBox.GetComponent<MeshRenderer>().material.color = Color.green;
-        PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material = Green;
+        PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material = Red;
         //send to remote call (on dodec) and trigger function Serial Communication
         SerialCommunication.sendNote("X");
     }
