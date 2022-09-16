@@ -50,7 +50,7 @@ public class PCSequencer : MonoBehaviour
                 {
                     // Debug.Log("is this a thing?:   " + value);
                     _currentIndex = value;
-                    textMesh.text = _currentIndex.ToString();
+                   
                 }
             }
         }
@@ -113,7 +113,7 @@ public class PCSequencer : MonoBehaviour
  
         StartCoroutine("func");
      
-        Debug.Log("Sequence Item " + CurrentIndex);
+      //  Debug.Log("Sequence Item " + CurrentIndex);
     }
 
 
@@ -176,6 +176,7 @@ public class PCSequencer : MonoBehaviour
     void SpeedAdjust(float speed)
     {
         sequenceIntervalDelay = speed;
+        textMesh.text = sequenceIntervalDelay.ToString();
 
     }
 
@@ -206,7 +207,7 @@ public class PCSequencer : MonoBehaviour
         {
       
         }
-        Debug.Log("reset seq");
+       // Debug.Log("reset seq");
         CurrentIndex = 0;
     }
 }

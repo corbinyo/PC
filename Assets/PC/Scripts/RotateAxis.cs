@@ -26,6 +26,8 @@ public class RotateAxis : MonoBehaviour
     private PhotonView myPV;
     public UnityEvent BigExplosionEvent;
     public TMPro.TextMeshPro text;
+    [SerializeField]
+    private TextMeshPro textMeshSpeed = null;
     void Start()
     {
         myPV = this.GetComponent<PhotonView>();
@@ -65,14 +67,16 @@ public class RotateAxis : MonoBehaviour
     [PunRPC]
     public void WheelSpeed_RPC(float updatedSpeed)
     {
+        //Debug.Log("Slider Updated");
         speed = updatedSpeed;
+        textMeshSpeed.text = speed.ToString();
     }
 
 
         public void OnSliderUpdated(SliderEventData eventData)
     {
         
-        myPV.RPC("WheelSpeed_RPC", RpcTarget.AllBuffered, float.Parse($"{eventData.NewValue:F2}") * 100f);
+        myPV.RPC("WheelSpeed_RPC", RpcTarget.All, float.Parse($"{eventData.NewValue:F2}") * 100f);
 
     }
 

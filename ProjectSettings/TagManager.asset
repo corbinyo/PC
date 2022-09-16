@@ -10,6 +10,7 @@ TagManager:
   - NotationSphere
   - SequencerNotationSphere
   - WheelNotationSphere
+  - RWTrigger
   layers:
   - Default
   - TransparentFX

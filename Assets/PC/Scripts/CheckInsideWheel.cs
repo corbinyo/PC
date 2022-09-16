@@ -8,7 +8,7 @@ using UnityEngine;
 public class CheckInsideWheel : MonoBehaviour
 {
     Collider m_Collider;
-    public bool wheelBoxActive;
+    public bool wheelBoxActive = false;
     public string activeNote;
     public GameObject wheelBox;
     
@@ -48,20 +48,30 @@ public class CheckInsideWheel : MonoBehaviour
     [PunRPC]
     public void RPC_OnWheelTrigger(int viewID)
     {
-        //PhotonView.Find(myPVInt).gameObject.GetComponent<CheckInsideWheel>().wheelBox.GetComponent<MeshRenderer>().material.color = Color.yellow; 
+        Debug.Log("trigger wheel ");
         PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material = Green;
         //send to remote call (on dodec) and trigger function Serial Communication
         SerialCommunication.sendNote(activeNote);
+        Debug.Log("trigger wheel enter 1 ");
     }
         // Update is called once per frame
-        void  OnTriggerEnter(Collider collision)
+    void  OnTriggerEnter(Collider collision)
     {
-     if (collision.gameObject.CompareTag("LWTrigger") && wheelBoxActive == true)
+     if (collision.gameObject.CompareTag("LWTrigger")  && wheelBoxActive == true)
         {
             int viewIDOfObject = collision.GetComponent<PhotonView>().ViewID;
  
             //calls the RPC on this script
-            PhotonView.Find(myPVInt).RPC("RPC_OnWheelTrigger", RpcTarget.AllBuffered, viewIDOfObject);
+            PhotonView.Find(myPVInt).RPC("RPC_OnWheelTrigger", RpcTarget.All, viewIDOfObject);
+            Debug.Log("trigger wheel enter 2 ");
+        }
+        if (collision.gameObject.CompareTag("RWTrigger") && wheelBoxActive == true)
+        {
+            int viewIDOfObject = collision.GetComponent<PhotonView>().ViewID;
+
+            //calls the RPC on this script
+            PhotonView.Find(myPVInt).RPC("RPC_OnWheelTrigger", RpcTarget.All, viewIDOfObject);
+            Debug.Log("trigger wheel enter 2 ");
         }
     }
 
@@ -72,6 +82,7 @@ public class CheckInsideWheel : MonoBehaviour
         PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material = Red;
         //send to remote call (on dodec) and trigger function Serial Communication
         SerialCommunication.sendNote("X");
+        Debug.Log("trigger wheel exit 2 ");
     }
 
     void OnTriggerExit(Collider collision)
@@ -81,7 +92,16 @@ public class CheckInsideWheel : MonoBehaviour
             int viewIDOfObject = collision.GetComponent<PhotonView>().ViewID;
 
             //calls the RPC on this script
-            PhotonView.Find(myPVInt).RPC("RPC_OnWheelTriggerExit", RpcTarget.AllBuffered, viewIDOfObject);
+            PhotonView.Find(myPVInt).RPC("RPC_OnWheelTriggerExit", RpcTarget.All, viewIDOfObject);
+            Debug.Log("trigger wheel exit 1");
+        }
+        if (collision.gameObject.CompareTag("RWTrigger") && wheelBoxActive == true)
+        {
+            int viewIDOfObject = collision.GetComponent<PhotonView>().ViewID;
+
+            //calls the RPC on this script
+            PhotonView.Find(myPVInt).RPC("RPC_OnWheelTriggerExit", RpcTarget.All, viewIDOfObject);
+            Debug.Log("trigger wheel exit 1");
         }
     }
 

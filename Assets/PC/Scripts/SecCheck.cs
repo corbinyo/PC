@@ -19,6 +19,7 @@ public class SecCheck : MonoBehaviour
     public Material off;
     public Material manip;
     public GameObject avoid;
+    public GameObject avoid2;
 
     //this script is called when the "Sec" is manipulated. It checks to see if it is currently in active in a Sequencer
     // Start is called before the first frame update
@@ -34,6 +35,14 @@ public class SecCheck : MonoBehaviour
         if (avoid != null)
         {
             Physics.IgnoreCollision(avoid.GetComponent<Collider>(), myPV.gameObject.GetComponent<Collider>(), true);
+        }
+        else
+        {
+            Debug.Log("coulnd't find objects to avoid");
+        }
+        if (avoid2 != null)
+        {
+            Physics.IgnoreCollision(avoid2.GetComponent<Collider>(), myPV.gameObject.GetComponent<Collider>(), true);
         }
         else
         {

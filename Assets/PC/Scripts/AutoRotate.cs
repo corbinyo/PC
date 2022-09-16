@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using Microsoft.MixedReality.Toolkit.UI;
 using Photon.Pun;
 using Photon.Realtime;
 public class AutoRotate : MonoBehaviour
 {
     public float Speed;
+    private TextMeshPro textMesh = null;
     public bool RotateOnX = true;
     public bool RotateOnY = true;
     public bool RotateOnZ = true;
@@ -25,11 +27,11 @@ public class AutoRotate : MonoBehaviour
     void SpeedAdjust(float speed)
     {
         Speed = speed;
-        //Debug.Log("the speed is : " + speed);
-        if (!myPV.IsMine)
-        {
-            pinchSlider.SliderValue = speed;
-        }
+        textMesh.text = Speed.ToString();
+        //if (!myPV.IsMine)
+        //{
+        //    pinchSlider.SliderValue = speed;
+        //}
 
     }
 
