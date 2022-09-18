@@ -32,7 +32,7 @@ public class Reset : MonoBehaviour
     {
         foreach (PinchSlider pinch in sliders)
         {
-            pinch.SliderValue = 0;
+            pinch.SliderValue = 0.5f;
         }
         foreach (GridObjectCollection grids in gridObjects)
         {
