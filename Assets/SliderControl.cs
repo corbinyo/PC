@@ -31,7 +31,7 @@ public class SliderControl : MonoBehaviour
 
     public void OnSliderUpdated(SliderEventData eventData)
     {
-            myPV.RPC("PlayPause_RPC", RpcTarget.Others, float.Parse($"{eventData.NewValue:F2}"));
+            myPV.RPC("PlayPause_RPC", RpcTarget.Others, float.Parse($"{eventData.NewValue:F2}") * 100f);
         }
 }
 
