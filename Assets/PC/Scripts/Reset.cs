@@ -4,45 +4,40 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Microsoft.MixedReality.Toolkit.UI;
+using Microsoft.MixedReality.Toolkit.Utilities;
+
+
 public class Reset : MonoBehaviour
 {
     private PhotonView myPV;
-    public int level;
-    Scene m_Scene;
-    string sceneName;
-   
+    public PinchSlider[] sliders;
+    public GridObjectCollection[] gridObjects;
+
     void Start()
     {
-       
         myPV = GetComponent<PhotonView>();
-        PhotonView.DontDestroyOnLoad(myPV);
-        //if (sceneName == "Restart")
-        //{
-        //    Destroy(myPV);
-        //    PhotonNetwork.LoadLevel(level);
-        //}
-
-
     }
 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-       
             myPV.RPC("Restart", RpcTarget.All);
         }
-
     }
     [PunRPC]
     void Restart()
     {
-        if (PhotonNetwork.IsMasterClient)
+        foreach (PinchSlider pinch in sliders)
         {
-         
-            PhotonNetwork.LoadLevel(level);
+            pinch.SliderValue = 0;
         }
-    }
+        foreach (GridObjectCollection grids in gridObjects)
+        {
+            grids.UpdateCollection();
+        }
 
     }
+}

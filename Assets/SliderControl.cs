@@ -9,7 +9,11 @@ public class SliderControl : MonoBehaviour
     [SerializeField]
     private TextMeshPro textMesh = null;
     private PhotonView myPV;
-   
+
+    void Start()
+    {
+        myPV = GetComponent<PhotonView>();
+    }
 
     [PunRPC]
     public void ChangeSliderValue_RPC(float speedVisual)
@@ -27,7 +31,7 @@ public class SliderControl : MonoBehaviour
 
     public void OnSliderUpdated(SliderEventData eventData)
     {
-            myPV.RPC("PlayPause_RPC", RpcTarget.AllBuffered, float.Parse($"{eventData.NewValue:F2}"));
+            myPV.RPC("PlayPause_RPC", RpcTarget.Others, float.Parse($"{eventData.NewValue:F2}"));
         }
 }
 
