@@ -8,11 +8,12 @@ public class SliderControl : MonoBehaviour
 {
     [SerializeField]
     private TextMeshPro textMesh = null;
+    [SerializeField]
     private PhotonView myPV;
 
     void Start()
     {
-        myPV = GetComponent<PhotonView>();
+        myPV = gameObject.GetComponent<PhotonView>();
     }
 
     [PunRPC]
@@ -31,7 +32,11 @@ public class SliderControl : MonoBehaviour
 
     public void OnSliderUpdated(SliderEventData eventData)
     {
-            myPV.RPC("PlayPause_RPC", RpcTarget.Others, float.Parse($"{eventData.NewValue:F2}") * 100f);
+        if (myPV = null)
+        {
+
+            myPV.RPC("ChangeSliderValue_RPC", RpcTarget.All, float.Parse($"{eventData.NewValue:F2}") * 100f);
         }
+    }
 }
 
