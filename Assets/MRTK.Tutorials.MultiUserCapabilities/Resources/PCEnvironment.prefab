@@ -7266,6 +7266,22 @@ PrefabInstance:
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 1477100383998862920}
+    - target: {fileID: 4437800618118277200, guid: dfeb41b2540ab244681e28693ce74399, type: 3}
+      propertyPath: SequenceItems.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437800618118277200, guid: dfeb41b2540ab244681e28693ce74399, type: 3}
+      propertyPath: SequenceItems.Array.data[6]
+      value: 
+      objectReference: {fileID: 2888939018756802047}
+    - target: {fileID: 4437800618118277200, guid: dfeb41b2540ab244681e28693ce74399, type: 3}
+      propertyPath: SequenceItems.Array.data[7]
+      value: 
+      objectReference: {fileID: 7544600588467535396}
+    - target: {fileID: 4437800618118277200, guid: dfeb41b2540ab244681e28693ce74399, type: 3}
+      propertyPath: SequenceItems.Array.data[8]
+      value: 
+      objectReference: {fileID: 1728592837258933706}
     - target: {fileID: 4561995816479812555, guid: dfeb41b2540ab244681e28693ce74399, type: 3}
       propertyPath: ObservedComponents.Array.data[0]
       value: 
