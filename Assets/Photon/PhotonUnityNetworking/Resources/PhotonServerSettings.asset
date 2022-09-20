@@ -87,6 +87,8 @@ MonoBehaviour:
   - ChangeSliderValue_RPC
   - OnPlay
   - ResetSequence
+  - RPC_OnWheelTriggerExitDodecNull
+  - RPC_followWheelBox
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

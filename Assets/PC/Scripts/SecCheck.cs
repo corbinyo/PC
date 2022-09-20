@@ -64,7 +64,7 @@ public class SecCheck : MonoBehaviour
     public void startManipulate()
     {
         myPV.RPC("RPC_startManipulate", RpcTarget.All);
-        Debug.Log("start manip");
+       // Debug.Log("start manip");
     }
 
     [PunRPC]
@@ -83,7 +83,7 @@ public class SecCheck : MonoBehaviour
     public void endManipulate()
     {
         myPV.RPC("RPC_endManipulate", RpcTarget.All);
-        Debug.Log("end manip");
+       // Debug.Log("end manip");
     }
 
     [PunRPC]
@@ -212,16 +212,17 @@ public class SecCheck : MonoBehaviour
 
             PhotonView.Find(viewID).gameObject.GetComponent<CheckInsideWheel>().wheelBox.GetComponent<MeshRenderer>().material = wheelOff;
 
-        
+            PhotonView.Find(viewID).gameObject.GetComponent<CheckInsideWheel>().dodec = null;
+
         //Transform m_NewTransform = collision.gameObject.transform;
 
         //PhotonView.Find(myPVInt).gameObject.transform.parent = null;
 
         //this.transform.localPosition = new Vector3(0, 0, 0);
         //calls the RPC on checkinside script
-       // PhotonView.Find(viewID).RPC("RPC_OnWheelTriggerExit", RpcTarget.All);
-    
-}
+        // PhotonView.Find(viewID).RPC("RPC_OnWheelTriggerExit", RpcTarget.All);
+
+    }
    
 
 
@@ -233,7 +234,7 @@ public class SecCheck : MonoBehaviour
             //calls the RPC on this script
             PhotonView.Find(myPVInt).RPC("RPC_OnTriggerExitWheel", RpcTarget.All, viewIDOfObject);
 
-            Debug.Log("RPC_OnTriggerExitWheel Function Called" + "Sequencer Removed From Collider" + collision.gameObject.name);
+           // Debug.Log("RPC_OnTriggerExitWheel Function Called" + "Sequencer Removed From Collider" + collision.gameObject.name);
 
 
 

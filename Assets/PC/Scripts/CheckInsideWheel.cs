@@ -11,7 +11,7 @@ public class CheckInsideWheel : MonoBehaviour
     public bool wheelBoxActive = false;
     public string activeNote;
     public GameObject wheelBox;
-    
+
     private PhotonView myPV;
     private PhotonView myPVDodec;
     private int myPVInt;
@@ -23,7 +23,7 @@ public class CheckInsideWheel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+
         m_Collider = GetComponent<Collider>();
         m_Collider.enabled = true;
         myPV = GetComponent<PhotonView>();
@@ -31,21 +31,28 @@ public class CheckInsideWheel : MonoBehaviour
 
     }
 
-    private void Update()
+    void Update()
     {
-        if (dodec != null)
+        
+        if (wheelBoxActive == true && dodec.GetComponent<SecCheck>().isActiveInSeq == true)
         {
-            if (wheelBoxActive == true && dodec.GetComponent<SecCheck>().isActiveInSeq == true)
-            {
-                dodec.transform.position = transform.position;
-                
-            }
-            else
-            {
-               
-            }
+            dodec.transform.position = transform.position;
         }
+       // myPV.RPC("RPC_followWheelBox", RpcTarget.AllBuffered);
+
     }
+
+    //[PunRPC]
+    //public void RPC_followWheelBox()
+    //{
+    //    if (wheelBoxActive == true && dodec.GetComponent<SecCheck>().isActiveInSeq == true)
+    //    {
+    //          dodec.transform.position = transform.position;
+    //    }
+        
+    //}
+
+
 
 
     [PunRPC]
@@ -58,7 +65,7 @@ public class CheckInsideWheel : MonoBehaviour
         if (myPVDodec.IsMine)
         {
             SerialCommunication.sendNote(activeNote);
-          
+            SerialCommunication.sendNote("X");
         }
       
     }
@@ -99,7 +106,7 @@ public class CheckInsideWheel : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("LWTrigger") && wheelBoxActive == true)
         {
-            myPVDodec = null;
+            
             int viewIDOfObject = collision.GetComponent<PhotonView>().ViewID;
         
             //calls the RPC on this script
@@ -108,7 +115,7 @@ public class CheckInsideWheel : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("RWTrigger") && wheelBoxActive == true)
         {
-            myPVDodec = null;
+           
 
             int viewIDOfObject = collision.GetComponent<PhotonView>().ViewID;
 

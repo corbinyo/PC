@@ -45,7 +45,7 @@ public class pcInteraction : MonoBehaviourPun
     public void RPC_setToPlay()
     {
      
-            Debug.Log("is this a thing? green. LAST STOP BEFORE SEQUENCER");
+           // Debug.Log("is this a thing? green. LAST STOP BEFORE SEQUENCER");
             allPCInteraction.allSequencerBoxMesh.material = green;
             allPCInteraction.isActiveToPlay = true;
             allPCInteraction.allCheckInsideSphere.sequencerBoxActive = true;
@@ -55,7 +55,7 @@ public class pcInteraction : MonoBehaviourPun
     public void RPC_setToStop()
     {
       
-            Debug.Log("is this a thing? red. LAST STOP BEFORE SEQUENCER");
+            //Debug.Log("is this a thing? red. LAST STOP BEFORE SEQUENCER");
             allPCInteraction.allSequencerBoxMesh.material = red;
             allPCInteraction.isActiveToPlay = false;
             allPCInteraction.allCheckInsideSphere.sequencerBoxActive = false;

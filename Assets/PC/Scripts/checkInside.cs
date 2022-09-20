@@ -39,14 +39,14 @@ public class checkInside : MonoBehaviour
         //calls RPC_setToPlay on PCINTEREACTION
         //PhotonView.Find(mySeqBoxPVInt).RPC("RPC_setToPlay", RpcTarget.AllBuffered);
         mySeqBoxPVInt.RPC("RPC_setToPlay", RpcTarget.All);
-        Debug.Log("RPC called on PCINTERACTION Script");
+      //  Debug.Log("RPC called on PCINTERACTION Script");
 
     }
 
     [PunRPC]
     void RPC_OnTriggerExitCollideWithDodec()
     {
-        Debug.Log("RPC called on PCINTERACTION Script");
+      //  Debug.Log("RPC called on PCINTERACTION Script");
         // PhotonView.Find(mySeqBoxPVInt).RPC("RPC_setToStop", RpcTarget.All);
         mySeqBoxPVInt.RPC("RPC_setToStop", RpcTarget.All);
 
