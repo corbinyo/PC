@@ -40,11 +40,11 @@ public class CheckInsideWheel : MonoBehaviour
             {
                 if (wheelBoxActive == true && dodec.GetComponent<SecCheck>().isActiveInSeq == true)
                 {
+                  //  Debug.Log("sec in wheel");
                     dodecRB.MovePosition(transform.position);
                     dodecRB.MoveRotation(transform.rotation);
-                    //    dodec.transform.position = transform.position;
-                    //}
-                    // myPV.RPC("RPC_followWheelBox", RpcTarget.AllBuffered);
+                    dodec.transform.position = transform.position;
+
                 }
             }
         }

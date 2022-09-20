@@ -120,7 +120,7 @@ public class SecCheck : MonoBehaviour
     {
         Debug.Log("on enter wheel box");
 
-        //rb.constraints = RigidbodyConstraints.FreezeAll;
+      
 
         mySecCheck.isActiveInSeq = true;
 
