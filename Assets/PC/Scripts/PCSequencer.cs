@@ -184,7 +184,6 @@ public class PCSequencer : MonoBehaviour
     void ResizeCube(int index)
     {
 
-        {
             for (int i = 0; i < SequenceItems.Length; i++)
             {
                 if (i == index)
@@ -195,7 +194,7 @@ public class PCSequencer : MonoBehaviour
                
             }
         }
-    }
+    
 
     /// <summary>
     /// Resests the sequence back to the beginning.
@@ -203,11 +202,11 @@ public class PCSequencer : MonoBehaviour
     [PunRPC]
     private void ResetSequence()
     {
-        foreach (var go in SequenceItems)
-        {
+        //foreach (var go in SequenceItems)
+        //{
       
-        }
-       // Debug.Log("reset seq");
+        //}
+        Debug.Log("reset seq");
         CurrentIndex = 0;
     }
 }
