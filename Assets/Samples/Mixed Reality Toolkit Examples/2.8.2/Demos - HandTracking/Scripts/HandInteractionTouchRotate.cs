@@ -20,7 +20,8 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Demos
         public string note;
         private PhotonView myPV;
         private int myPVInt;
-        public bool active = false;
+        [SerializeField]
+        private bool active;
         
         [SerializeField]
         private float rotateSpeed = 300.0f;
@@ -43,6 +44,7 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Demos
                 active = true;
                 myPVMeshRend.GetComponent<MeshRenderer>().material = on;
                 SerialCommunication.sendNote(note);
+
             
         }
 
@@ -59,24 +61,23 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Demos
         {
             if (targetObjectTransform != null && !active)
             {
-                this.active = true;
+                active = true;
                 PhotonView.Find(myPVInt).RPC("RPC_OnTriggerDrumPad", RpcTarget.All, myPVInt);
              
             }
         }
 
-
-
         void IMixedRealityTouchHandler.OnTouchCompleted(HandTrackingInputEventData eventData) 
         {
+          
             if (targetObjectTransform != null && active)
             {
-                this.active = false ;
+                this.active = false;
                 myPVMeshRend.GetComponent<MeshRenderer>().material = off;
                 PhotonView.Find(myPVInt).RPC("RPC_OnStopDrumPad", RpcTarget.All, myPVInt);
             }
         }
-
+        
 
         void IMixedRealityTouchHandler.OnTouchUpdated(HandTrackingInputEventData eventData)
         {

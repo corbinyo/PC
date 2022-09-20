@@ -204,9 +204,12 @@ public class PCSequencer : MonoBehaviour
     {
         //foreach (var go in SequenceItems)
         //{
-      
+
         //}
-        Debug.Log("reset seq");
+//#if UNITY_EDITOR
+//        Debug.Log("reset seq");
+//#endif
         CurrentIndex = 0;
+
     }
 }

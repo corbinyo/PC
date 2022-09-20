@@ -17,7 +17,7 @@ public class SecCheck : MonoBehaviour
     private SecCheck mySecCheck;
     public Material on;
     public Material off;
-    public Material manip;
+    public Material wheelOff;
     public GameObject avoid;
     public GameObject avoid2;
 
@@ -210,12 +210,12 @@ public class SecCheck : MonoBehaviour
 
             PhotonView.Find(viewID).gameObject.GetComponent<CheckInsideWheel>().wheelBoxActive = false;
 
-            PhotonView.Find(viewID).gameObject.GetComponent<CheckInsideWheel>().wheelBox.GetComponent<MeshRenderer>().material = off;
+            PhotonView.Find(viewID).gameObject.GetComponent<CheckInsideWheel>().wheelBox.GetComponent<MeshRenderer>().material = wheelOff;
 
         
         //Transform m_NewTransform = collision.gameObject.transform;
 
-     //  PhotonView.Find(myPVInt).gameObject.transform.parent = null;
+        //PhotonView.Find(myPVInt).gameObject.transform.parent = null;
 
         //this.transform.localPosition = new Vector3(0, 0, 0);
         //calls the RPC on checkinside script
