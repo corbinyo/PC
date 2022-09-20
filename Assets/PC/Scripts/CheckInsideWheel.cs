@@ -16,6 +16,7 @@ public class CheckInsideWheel : MonoBehaviour
     private PhotonView myPVDodec;
     private int myPVInt;
     public GameObject dodec;
+    public Rigidbody dodecRB;
 
     public Material Green;
     public Material Red;
@@ -31,15 +32,22 @@ public class CheckInsideWheel : MonoBehaviour
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        
-        if (wheelBoxActive == true && dodec.GetComponent<SecCheck>().isActiveInSeq == true)
+        if (myPV.IsMine)
         {
-            dodec.transform.position = transform.position;
+            if (dodecRB != null)
+            {
+                if (wheelBoxActive == true && dodec.GetComponent<SecCheck>().isActiveInSeq == true)
+                {
+                    dodecRB.MovePosition(transform.position);
+                    dodecRB.MoveRotation(transform.rotation);
+                    //    dodec.transform.position = transform.position;
+                    //}
+                    // myPV.RPC("RPC_followWheelBox", RpcTarget.AllBuffered);
+                }
+            }
         }
-       // myPV.RPC("RPC_followWheelBox", RpcTarget.AllBuffered);
-
     }
 
     //[PunRPC]
@@ -49,7 +57,7 @@ public class CheckInsideWheel : MonoBehaviour
     //    {
     //          dodec.transform.position = transform.position;
     //    }
-        
+
     //}
 
 
@@ -62,11 +70,9 @@ public class CheckInsideWheel : MonoBehaviour
         PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material = Green;
         //send to remote call (on dodec) and trigger function Serial Communication
         
-        if (myPVDodec.IsMine)
-        {
             SerialCommunication.sendNote(activeNote);
             SerialCommunication.sendNote("X");
-        }
+       
       
     }
         // Update is called once per frame
@@ -95,10 +101,10 @@ public class CheckInsideWheel : MonoBehaviour
     [PunRPC]
     public void RPC_OnWheelTriggerExit(int viewID)
     {
-        //PhotonView.Find(myPVInt).gameObject.GetComponent<CheckInsideWheel>().wheelBox.GetComponent<MeshRenderer>().material.color = Color.green;
+       
         PhotonView.Find(viewID).gameObject.GetComponent<MeshRenderer>().material = Red;
         //send to remote call (on dodec) and trigger function Serial Communication
-        SerialCommunication.sendNote("X");
+      //  SerialCommunication.sendNote("X");
         Debug.Log("trigger wheel exit 2 ");
     }
 

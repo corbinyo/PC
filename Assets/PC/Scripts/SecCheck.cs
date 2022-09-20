@@ -105,7 +105,7 @@ public class SecCheck : MonoBehaviour
 
             pv.gameObject.GetComponent<MeshRenderer>().material = on;
 
-            // myPV.gameObject.GetComponent<ObjectManipulator>().ForceEndManipulation();
+             myPV.gameObject.GetComponent<ObjectManipulator>().ForceEndManipulation();
            
             Debug.Log("on enter sequencer box RPC SEC CHECK");
             //calls the RPC on checkinside script
@@ -113,12 +113,14 @@ public class SecCheck : MonoBehaviour
         
     }
 
+
+
     [PunRPC]
     public void RPC_OnTriggerEnterWheel(int viewID)
     {
         Debug.Log("on enter wheel box");
 
-       rb.constraints = RigidbodyConstraints.FreezeAll;
+        //rb.constraints = RigidbodyConstraints.FreezeAll;
 
         mySecCheck.isActiveInSeq = true;
 
@@ -134,9 +136,10 @@ public class SecCheck : MonoBehaviour
         
         PhotonView.Find(viewID).gameObject.GetComponent<CheckInsideWheel>().dodec = this.gameObject;
 
-        myPV.gameObject.GetComponent<ObjectManipulator>().ForceEndManipulation();
+        PhotonView.Find(viewID).gameObject.GetComponent<CheckInsideWheel>().dodecRB = rb;
+        //rb.MovePosition(transform.position + Vector3.up * 2.0f);
 
-        // PhotonView.Find(myPVInt).gameObject.transform.SetParent(PhotonView.Find(viewID).gameObject.transform);
+        myPV.gameObject.GetComponent<ObjectManipulator>().ForceEndManipulation();
 
         //calls the RPC on checkinsidewheel script
         // PhotonView.Find(viewID).RPC("RPC_OnTriggerCollideWithDodec", RpcTarget.All);

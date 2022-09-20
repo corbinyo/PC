@@ -38,7 +38,7 @@ public class RotateAxis : MonoBehaviour
         UnityAction methodDelegate = Delegate.CreateDelegate(typeof(UnityAction), this, targetInfo) as UnityAction;
         //UnityEventTools.AddPersistentListener(BigExplosionEvent, methodDelegate);
     }
-    private void LateUpdate()
+    private  void FixedUpdate()
     {
         Rotate();
     }
@@ -60,7 +60,7 @@ public class RotateAxis : MonoBehaviour
 
     public void ExplodeMe()
     {
-        myPV.RPC("PlayPause_RPC", RpcTarget.AllBuffered);
+        myPV.RPC("PlayPause_RPC", RpcTarget.All);
         
     }
 
@@ -80,7 +80,7 @@ public class RotateAxis : MonoBehaviour
 
     }
 
-        void Rotate()
+    void Rotate()
     {
         //Forward Direction
         if (ForwardX == true && play == true)
