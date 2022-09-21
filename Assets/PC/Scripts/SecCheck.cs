@@ -107,7 +107,7 @@ public class SecCheck : MonoBehaviour
 
              myPV.gameObject.GetComponent<ObjectManipulator>().ForceEndManipulation();
            
-            Debug.Log("on enter sequencer box RPC SEC CHECK");
+          //  Debug.Log("on enter sequencer box RPC SEC CHECK");
             //calls the RPC on checkinside script
             pv.RPC("RPC_OnTriggerCollideWithDodec", RpcTarget.All);
         
@@ -157,16 +157,16 @@ public class SecCheck : MonoBehaviour
           
             //calls the RPC on this script
            myPV.RPC("RPC_OnTriggerEnterWheel", RpcTarget.All, viewIDOfObject);
-          Debug.Log("RPC_OnTriggerWheelFunction Called" + "Sequencer Added To Collider" + collision.gameObject.name);
+         // Debug.Log("RPC_OnTriggerWheelFunction Called" + "Sequencer Added To Collider" + collision.gameObject.name);
         }
 
         if (collision.gameObject.CompareTag("SequencerNotationSphere"))
         {
-            Debug.Log("DODEC Entered SEQ");
+           // Debug.Log("DODEC Entered SEQ");
            
             //calls the RPC on this script
             myPV.RPC("RPC_OnTriggerEnterSequencer", RpcTarget.All, viewIDOfObject);
-            Debug.Log("RPC_OnTriggerSequencer Function Called" + "Sequencer Added To Collider" + collision.gameObject.name);
+           // Debug.Log("RPC_OnTriggerSequencer Function Called" + "Sequencer Added To Collider" + collision.gameObject.name);
 
         }
     }

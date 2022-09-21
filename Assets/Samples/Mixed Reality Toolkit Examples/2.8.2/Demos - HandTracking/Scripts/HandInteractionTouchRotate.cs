@@ -73,7 +73,7 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Demos
             if (targetObjectTransform != null && active)
             {
                 this.active = false;
-                myPVMeshRend.GetComponent<MeshRenderer>().material = off;
+               
                 PhotonView.Find(myPVInt).RPC("RPC_OnStopDrumPad", RpcTarget.All, myPVInt);
             }
         }
